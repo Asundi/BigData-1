@@ -1,0 +1,1 @@
+scala "D:\BD\namesbystate\thinNames.scala"  "D:\BD\namesbystate\TX.TXT"  "Mark"
