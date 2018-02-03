@@ -1,7 +1,7 @@
 //LazyLoading
 val x =100
 
-//x: Int = 100
+// x: Int = 100
 
 
 lazy val x=100
