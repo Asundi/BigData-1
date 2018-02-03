@@ -10,7 +10,7 @@ lazy val x=100
 
 
 x* 2
-//res0: Int = 200
+// res0: Int = 200
 
 
 val x= ( 1 to 100000).toList
