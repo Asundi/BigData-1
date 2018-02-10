@@ -1,4 +1,4 @@
-//Closures
+//Closures 
 
 
 def getAreaClosure ={
