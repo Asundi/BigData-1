@@ -1,0 +1,176 @@
+	
+Where should it be? By default when you open the file manager you run around your home directory(/home/username), same as in windows C:\Users\Username . Notice how /usr/local starts with backslash ? There's root directory from which you can access other directories; the image to keep in mind is the root directory is where root starts, and everything else is branching form it
+
+How to access the folder you need:
+
+Method #1 : press CtrlL in the file manager ( which is called nautilus, by the way) and type /usr/local into the address bar or / .
+
+Method#2: Pressing repeatedly AltArrow Up buttown in file manager will get you to root directory (which is like C:\ folder in windows), and navigate graphically to whatever folder you need from there.
+
+Method #3: Press AltF2 to open "Run command" dialogue and type nautilus /usr/local
+
+ssh-keygen -t dsa -P ' ' -f -/.ssh/id_dsa
+
+www.oracle.com/technetwork/java/javase/downloads/index.html
+
+/home/keerthan/java/jdk1.8.0_161
+
+/bin/hdfs namenode -format
+
+
+!q
+
+!wq
+
+
+sudo su
+
+export JAV_HOME=/usr/java/jdk1.8.0_161
+
+export PATH=$PATH:/usr/java/jdk1.8.0_161/bin
+
+echo $JAVA_HOME  //CHECK IF SET OR NOT
+
+ctrl+alt +t  -- terminal window
+
+
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.4.jar
+
+export JAVA_HOME=/lib/jvm/jre-openjdk
+
+export PATH=$PATH:/lib/jvm/jre-openjdk/bin
+
+
+cd /home
+cd keerthan
+
+cd hadoop-install
+
+cd hadoop-2.7.4
+
+
+root@keerthan-VirtualBox:/home/keerthan/hadoop-install/hadoop-2.7.4# bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.4.jar grepinput output 'dfs.[a-z.]+'
+
+
+cat output/*
+
+
+
+
+[root@localhost hadoop-2.7.4]# ssh-keygen -t dsa -P ''
+Generating public/private dsa key pair.
+Enter file in which to save the key (/root/.ssh/id_dsa): home
+Your identification has been saved in home.
+Your public key has been saved in home.pub.
+The key fingerprint is:
+4c:24:e1:c1:1b:a0:78:35:7c:bf:2b:ce:39:b3:b8:58 root@localhost.localdomain
+The key's randomart image is:
+
+
+cat -/.ssh/id_dsa/home.pub >> -/.ssh/authorized_keys
+
+
+
+
+ ssh-keygen -t dsa -P "" -f ~/.ssh/id_dsa
+
+cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+
+sbin/start-dfs.sh
+
+
+bin/hdfs dfs -mkdir  /user/keerthan
+
+bin/hdfs dfs -mkdir /usr/input
+
+
+copy from local :
+
+hadoop fs -copyFromLocal etc/hadoop/hadoop-env.sh /test/
+[root@localhost hadoop-2.7.4]# hadoop fs -ls /test
+Found 2 items
+-rw-r--r--   1 root supergroup       4339 2018-02-12 16:16 /test/hadoop-env.sh
+drwxr-xr-x   - root supergroup          0 2018-02-12 16:13 /test/subdir
+
+bin/hdfs dfs -put etc/hadoop/* /user/input
+
+
+
+
+starting datanode, logging to l/hadoop-2.7.4/logs/hadoop-root-datanode-localhost.localdomain.out
+
+Port - 50070 - dfs health
+Port - 8088 - hadoop cluster config map reduce logic
+
+
+to clean all datanode,namenode command - rm -rf /tmp/hadoop-root/*
+
+export PATH=$PATH:/home/keerthan/hadoop-install/hadoop-2.7.4/bin
+
+
+
+hdfs commands:
+
+bin/hadoop fs
+bin/hadoop fs -help
+
+bin/hdfs dfs
+bin/hdfs dfs -help
+
+export PATH=$PATH:/home/keerthan/hadoop-install/hadoop-2.7.4/bin
+
+[root@localhost hadoop-2.7.4]# hadoop fs -mkdir /test
+[root@localhost hadoop-2.7.4]# hadoop fs -ls /test
+[root@localhost hadoop-2.7.4]# hadoop fs -mkdir /test/subdir
+[root@localhost hadoop-2.7.4]# hadoop fs -ls /test
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2018-02-12 16:13 /test/subdir
+
+
+copy from local to hdfs
+
+hadoop fs -copyFromLocal etc/hadoop/hadoop-env.sh /test/
+
+ hadoop fs -ls /test
+
+hadoop fs -mkdir /test/subdir
+
+hadoop fs -ls /test
+
+hadoop fs -put etc/hadoop/core-site.xml /test
+
+
+[root@localhost hadoop-2.7.4]# hadoop fs -mkdir /test-dst
+[root@localhost hadoop-2.7.4]# hadoop fs -ls /
+Found 5 items
+drwxr-xr-x   - root supergroup          0 2018-02-12 15:41 /input
+drwxr-xr-x   - root supergroup          0 2018-02-12 16:20 /test
+drwxr-xr-x   - root supergroup          0 2018-02-12 16:21 /test-dst
+drwx------   - root supergroup          0 2018-02-12 15:45 /tmp
+drwxr-xr-x   - root supergroup          0 2018-02-12 15:50 /user
+[root@localhost hadoop-2.7.4]# hadoop fs -cp /test/* /test-dst/
+[root@localhost hadoop-2.7.4]# hadoop fs -ls /test-dst
+Found 3 items
+-rw-r--r--   1 root supergroup        874 2018-02-12 16:22 /test-dst/core-site.xml
+-rw-r--r--   1 root supergroup       4339 2018-02-12 16:22 /test-dst/hadoop-env.sh
+
+
+copy from hdfs to local
+
+mkdir fromhdfs
+
+hadoop fs -copyToLocal /test/* fromhdfs/
+
+
+ls fromhdfs/
+
+cd fromhdfs/
+rm -rf *
+
+ls -l
+
+hadoop fs -get /test/* fromhdfs/
+
+ls -l
+
+
