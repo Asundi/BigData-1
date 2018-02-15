@@ -1,0 +1,471 @@
+2018-02-15 14:58:42,299  WARN [Worker-4] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 14:58:42,299  WARN [Worker-4] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 14:58:43,583  WARN [Worker-4] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 14:58:43,583  WARN [Worker-4] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 14:58:43,646  WARN [Worker-1] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 14:58:43,662  WARN [Worker-1] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 14:58:46,160  WARN [Worker-8] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 14:58:46,160  WARN [Worker-8] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 14:59:01,764  WARN [Worker-10] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 14:59:01,764  WARN [Worker-10] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 14:59:10,379  WARN [Worker-10] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 14:59:10,379  WARN [Worker-10] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:00:01,639  WARN [Worker-2] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:00:01,639  WARN [Worker-2] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 15:02:05,768  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:05,768  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:06,002  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:06,002  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,488  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,488  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,488  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,488  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,503  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,519  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:02:07,519  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:02:07,628 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.apply(PresentationCompilerProxy.scala:58)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.forceReconcile(InteractiveCompilationUnit.scala:150)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.forceReconcile$(InteractiveCompilationUnit.scala:149)
+	at org.scalaide.core.internal.jdt.model.ScalaSourceFile.forceReconcile(ScalaSourceFile.scala:71)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.handleReconciliation(ScalaReconcilingStrategy.scala:54)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.reconcile(ScalaReconcilingStrategy.scala:39)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:02:07,691 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.apply(PresentationCompilerProxy.scala:58)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.currentProblems(InteractiveCompilationUnit.scala:183)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.currentProblems$(InteractiveCompilationUnit.scala:180)
+	at org.scalaide.core.internal.jdt.model.ScalaSourceFile.currentProblems(ScalaSourceFile.scala:71)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.forceReconcile(InteractiveCompilationUnit.scala:151)
+	at org.scalaide.core.compiler.InteractiveCompilationUnit.forceReconcile$(InteractiveCompilationUnit.scala:149)
+	at org.scalaide.core.internal.jdt.model.ScalaSourceFile.forceReconcile(ScalaSourceFile.scala:71)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.handleReconciliation(ScalaReconcilingStrategy.scala:54)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.reconcile(ScalaReconcilingStrategy.scala:39)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:02:07,706 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.ui.internal.editor.decorators.BaseSemanticAction.apply(BaseSemanticAction.scala:139)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$3(ScalaSourceFileEditor.scala:105)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at org.scalaide.util.eclipse.EclipseUtils$$anon$3.run(EclipseUtils.scala:230)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.scalaide.util.eclipse.EclipseUtils$.withSafeRunner(EclipseUtils.scala:226)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$1(ScalaSourceFileEditor.scala:105)
+	at scala.collection.mutable.ArraySeq.foreach(ArraySeq.scala:74)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.reconciled(ScalaSourceFileEditor.scala:103)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5$adapted(ScalaSourceFileEditor.scala:478)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.reconciled(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor.reconciled(ScalaSourceFileEditor.scala:379)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2$adapted(ScalaReconcilingStrategy.scala:65)
+	at scala.Option.foreach(Option.scala:257)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.handleReconciliation(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.reconcile(ScalaReconcilingStrategy.scala:39)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:02:07,706 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.ui.internal.editor.decorators.BaseSemanticAction.apply(BaseSemanticAction.scala:139)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$3(ScalaSourceFileEditor.scala:105)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at org.scalaide.util.eclipse.EclipseUtils$$anon$3.run(EclipseUtils.scala:230)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.scalaide.util.eclipse.EclipseUtils$.withSafeRunner(EclipseUtils.scala:226)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$1(ScalaSourceFileEditor.scala:105)
+	at scala.collection.mutable.ArraySeq.foreach(ArraySeq.scala:74)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.reconciled(ScalaSourceFileEditor.scala:103)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5$adapted(ScalaSourceFileEditor.scala:478)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.reconciled(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor.reconciled(ScalaSourceFileEditor.scala:379)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2$adapted(ScalaReconcilingStrategy.scala:65)
+	at scala.Option.foreach(Option.scala:257)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.handleReconciliation(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.reconcile(ScalaReconcilingStrategy.scala:39)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:02:07,706 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.ui.internal.editor.decorators.BaseSemanticAction.apply(BaseSemanticAction.scala:139)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$3(ScalaSourceFileEditor.scala:105)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at org.scalaide.util.eclipse.EclipseUtils$$anon$3.run(EclipseUtils.scala:230)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.scalaide.util.eclipse.EclipseUtils$.withSafeRunner(EclipseUtils.scala:226)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.$anonfun$reconciled$1(ScalaSourceFileEditor.scala:105)
+	at scala.collection.mutable.ArraySeq.foreach(ArraySeq.scala:74)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$$anon$3.reconciled(ScalaSourceFileEditor.scala:103)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.$anonfun$reconciled$5$adapted(ScalaSourceFileEditor.scala:478)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor$ReconcilingListeners.reconciled(ScalaSourceFileEditor.scala:478)
+	at org.scalaide.ui.internal.editor.ScalaSourceFileEditor.reconciled(ScalaSourceFileEditor.scala:379)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.$anonfun$handleReconciliation$2$adapted(ScalaReconcilingStrategy.scala:65)
+	at scala.Option.foreach(Option.scala:257)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.handleReconciliation(ScalaReconcilingStrategy.scala:65)
+	at org.scalaide.ui.internal.reconciliation.ScalaReconcilingStrategy.reconcile(ScalaReconcilingStrategy.scala:39)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:02:07,722 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Error thrown while initializing the presentation compiler.
+Java Model Exception: Java Model Status [SparkScalaCourse does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getPerProjectInfoCheckExistence(JavaModelManager.java:2451)
+	at org.eclipse.jdt.internal.core.JavaProject.getPerProjectInfo(JavaProject.java:1903)
+	at org.eclipse.jdt.internal.core.JavaProject.getRawClasspath(JavaProject.java:1925)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths(ClasspathManagement.scala:149)
+	at org.scalaide.core.internal.project.ClasspathManagement.jdkPaths$(ClasspathManagement.scala:148)
+	at org.scalaide.core.internal.project.ScalaProject.jdkPaths(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath(ClasspathManagement.scala:136)
+	at org.scalaide.core.internal.project.ClasspathManagement.scalaClasspath$(ClasspathManagement.scala:135)
+	at org.scalaide.core.internal.project.ScalaProject.scalaClasspath(ScalaProject.scala:150)
+	at org.scalaide.core.internal.project.ScalaProject.setupCompilerClasspath(ScalaProject.scala:498)
+	at org.scalaide.core.internal.project.ScalaProject.initializeCompilerSettings(ScalaProject.scala:485)
+	at org.scalaide.core.internal.project.ScalaProject.prepareCompilerSettings(ScalaProject.scala:438)
+	at org.scalaide.core.internal.project.ScalaProject.$anonfun$presentationCompiler$1(ScalaProject.scala:162)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.liftedTree1$1(PresentationCompilerProxy.scala:154)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.create(PresentationCompilerProxy.scala:153)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.initialize(PresentationCompilerProxy.scala:118)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.obtainPc$1(PresentationCompilerProxy.scala:80)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.internal(PresentationCompilerProxy.scala:100)
+	at org.scalaide.core.internal.compiler.PresentationCompilerProxy.apply(PresentationCompilerProxy.scala:58)
+	at org.scalaide.ui.internal.editor.outline.ScalaOutlineReconcilingStrategy.updateOutlineView(ScalaOutlineReconcilingStrategy.scala:34)
+	at org.scalaide.ui.internal.editor.outline.ScalaOutlineReconcilingStrategy.reconcile(ScalaOutlineReconcilingStrategy.scala:19)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:77)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:69)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+2018-02-15 15:10:04,725  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:10:04,732  WARN [ModalContext] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:10:05,650  WARN [Worker-6] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:10:05,651  WARN [Worker-6] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:11:07,086  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:11:07,086  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:27,655  WARN [Worker-5] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:27,655  WARN [Worker-5] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:28,196  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:28,196  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:43,902  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:43,902  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:44,613  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:44,613  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:47,965 ERROR [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Throwable during asyncExec
+java.lang.UnsupportedOperationException: Tree Apply does not have a name.
+	at scala.tools.refactoring.common.EnrichedTrees$TreeMethodsForPositions.nameString(EnrichedTrees.scala:367)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports.mkName$1(ImportsToolbox.scala:86)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports.compareNameWith(ImportsToolbox.scala:88)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports.$anonfun$apply$1(ImportsToolbox.scala:69)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports.$anonfun$apply$1$adapted(ImportsToolbox.scala:69)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports$$anon$2.traverse(ImportsToolbox.scala:75)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports$$anon$2.traverse(ImportsToolbox.scala:72)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseStats$2(Trees.scala:2498)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseStats$1(Trees.scala:2498)
+	at scala.reflect.api.Trees$Traverser.traverseStats(Trees.scala:2497)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1337)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports$$anon$2.traverse(ImportsToolbox.scala:77)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports$$anon$2.traverse(ImportsToolbox.scala:72)
+	at scala.tools.refactoring.analysis.ImportsToolbox$IsSelectNotInRelativeImports.apply(ImportsToolbox.scala:80)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:444)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.traverseComponents$1(Trees.scala:1294)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1341)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.traverseComponents$1(Trees.scala:1294)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1341)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.$anonfun$itraverse$3(Trees.scala:1340)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1340)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseTrees$1(Trees.scala:2484)
+	at scala.reflect.api.Trees$Traverser.traverseTrees(Trees.scala:2484)
+	at scala.reflect.internal.Trees.traverseComponents$1(Trees.scala:1295)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1341)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.$anonfun$itraverse$1(Trees.scala:1220)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.internal.Trees.traverseMemberDef$1(Trees.scala:1214)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1339)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseTrees$1(Trees.scala:2484)
+	at scala.reflect.api.Trees$Traverser.traverseTrees(Trees.scala:2484)
+	at scala.reflect.internal.Trees.traverseComponents$1(Trees.scala:1245)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1341)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.$anonfun$itraverse$1(Trees.scala:1226)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.internal.Trees.traverseMemberDef$1(Trees.scala:1214)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1339)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseStats$2(Trees.scala:2498)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.api.Trees$Traverser.$anonfun$traverseStats$1(Trees.scala:2498)
+	at scala.reflect.api.Trees$Traverser.traverseStats(Trees.scala:2497)
+	at scala.reflect.internal.Trees.traverseComponents$1(Trees.scala:1243)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1341)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:382)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:181)
+	at scala.reflect.internal.Trees.$anonfun$itraverse$1(Trees.scala:1219)
+	at scala.reflect.api.Trees$Traverser.atOwner(Trees.scala:2507)
+	at scala.reflect.internal.Trees.traverseMemberDef$1(Trees.scala:1214)
+	at scala.reflect.internal.Trees.itraverse(Trees.scala:1338)
+	at scala.reflect.internal.Trees.itraverse$(Trees.scala:1211)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.internal.SymbolTable.itraverse(SymbolTable.scala:16)
+	at scala.reflect.api.Trees$Traverser.traverse(Trees.scala:2475)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.scala$tools$refactoring$common$TreeTraverser$TraverserWithFakedTrees$$super$traverse(CompilationUnitDependencies.scala:181)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse(TreeTraverser.scala:261)
+	at scala.tools.refactoring.common.TreeTraverser$TraverserWithFakedTrees.traverse$(TreeTraverser.scala:199)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:534)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.$anonfun$traverse$14(CompilationUnitDependencies.scala:512)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.$anonfun$traverse$14$adapted(CompilationUnitDependencies.scala:512)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies$$anon$1.traverse(CompilationUnitDependencies.scala:512)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies.dependencies(CompilationUnitDependencies.scala:570)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies.dependencies$(CompilationUnitDependencies.scala:133)
+	at scala.tools.refactoring.implementations.oimports.RegionTransformationsContext.dependencies(RegionTransformations.scala:16)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies.neededImports(CompilationUnitDependencies.scala:112)
+	at scala.tools.refactoring.analysis.CompilationUnitDependencies.neededImports$(CompilationUnitDependencies.scala:110)
+	at scala.tools.refactoring.implementations.oimports.RegionTransformationsContext.neededImports(RegionTransformations.scala:16)
+	at scala.tools.refactoring.implementations.ImportsHelper$$anonfun$$nestedInanonfun$addRequiredImports$2$1$$anon$1$NeededImports$.doApply(ImportsHelper.scala:26)
+	at scala.tools.refactoring.implementations.oimports.ImportParticipants$Participant.apply(ImportParticipants.scala:146)
+	at scala.tools.refactoring.implementations.oimports.ImportParticipants$Participant.apply$(ImportParticipants.scala:145)
+	at scala.tools.refactoring.implementations.ImportsHelper$$anonfun$$nestedInanonfun$addRequiredImports$2$1$$anon$1$NeededImports$.apply(ImportsHelper.scala:24)
+	at scala.tools.refactoring.implementations.ImportsHelper$$anonfun$$nestedInanonfun$addRequiredImports$2$1.applyOrElse(ImportsHelper.scala:65)
+	at scala.tools.refactoring.implementations.ImportsHelper$$anonfun$$nestedInanonfun$addRequiredImports$2$1.applyOrElse(ImportsHelper.scala:15)
+	at scala.PartialFunction$Lifted.apply(PartialFunction.scala:224)
+	at scala.PartialFunction$Lifted.apply(PartialFunction.scala:220)
+	at scala.tools.refactoring.transformation.Transformations$$anon$1.apply(Transformations.scala:67)
+	at scala.tools.refactoring.transformation.Transformations$$anon$1.apply(Transformations.scala:66)
+	at scala.Option.flatMap(Option.scala:171)
+	at scala.tools.refactoring.transformation.Transformations$Transformation$$anon$7.apply(Transformations.scala:42)
+	at scala.tools.refactoring.transformation.Transformations$Transformation$$anon$5.apply(Transformations.scala:49)
+	at scala.tools.refactoring.transformation.Transformations$Transformation$$anon$5.apply(Transformations.scala:47)
+	at scala.Option.flatMap(Option.scala:171)
+	at scala.tools.refactoring.transformation.Transformations$Transformation$$anon$7.apply(Transformations.scala:42)
+	at scala.tools.refactoring.Refactoring.transformFile(Refactoring.scala:40)
+	at scala.tools.refactoring.Refactoring.transformFile$(Refactoring.scala:39)
+	at scala.tools.refactoring.MultiStageRefactoring.transformFile(MultiStageRefactoring.scala:14)
+	at scala.tools.refactoring.implementations.MoveClass.perform(MoveClass.scala:125)
+	at scala.tools.refactoring.implementations.MoveClass.perform(MoveClass.scala:11)
+	at org.scalaide.refactoring.internal.ScalaIdeRefactoring.$anonfun$performRefactoring$2(ScalaIdeRefactoring.scala:187)
+	at scala.tools.nsc.util.InterruptReq.execute(InterruptReq.scala:26)
+	at scala.tools.nsc.interactive.Global.$anonfun$pollForWork$1(Global.scala:444)
+	at scala.tools.nsc.interactive.Global.pollForWork(Global.scala:418)
+	at scala.tools.nsc.interactive.PresentationCompilerThread.run(PresentationCompilerThread.scala:22)
+2018-02-15 15:12:48,184  WARN [Worker-7] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:48,184  WARN [Worker-7] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:48,565  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:48,565  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:50,921  WARN [Worker-1] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:50,921  WARN [Worker-1] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:51,015  WARN [Worker-8] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:51,015  WARN [Worker-8] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:53,454  WARN [Worker-4] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:53,454  WARN [Worker-4] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:53,557  WARN [Worker-1] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:53,557  WARN [Worker-1] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:56,098  WARN [Worker-6] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:56,098  WARN [Worker-6] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:56,491  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:56,491  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:58,190  WARN [Worker-4] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:58,190  WARN [Worker-4] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:12:58,582  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:12:58,582  WARN [Java indexing] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:14:19,662  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse has platform default sourceLevel.
+2018-02-15 15:14:19,662  WARN [Worker-3] - ScalaProject - Project SparkScalaCourse runs on platform default installation.
+2018-02-15 15:15:57,912  WARN [main] - org.scala-ide.sdt.core - org.scala-ide.sdt.core - org.scala-ide.sdt.core - 0 - Preference scala.compiler.sourceLevel was uninitialized for SparkScalaCourse, setting default to 2.12.
+2018-02-15 15:16:01,307  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - ImplicitHighlightingPresenter - Timeout while waiting for `askLoadedTyped` during semantic highlighting.
+2018-02-15 15:16:01,559  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - CustomSemanticAction - Timeout while waiting for `askLoadedTyped` during semantic highlighting.
+2018-02-15 15:16:01,764  WARN [org.scalaide.ui.internal.reconciliation.ScalaReconciler] - CallByNameParamAtCreationPresenter - Timeout while waiting for `askLoadedTyped` during semantic highlighting.
+2018-02-15 15:34:31,720  WARN [ModalContext] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:34:31,720  WARN [ModalContext] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 15:34:32,094  WARN [Worker-9] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:34:32,094  WARN [Worker-9] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 15:35:30,953  WARN [Worker-13] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:35:30,953  WARN [Worker-13] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 15:35:38,705  WARN [org.eclipse.jface.text.reconciler.MonoReconciler] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:35:38,705  WARN [org.eclipse.jface.text.reconciler.MonoReconciler] - ScalaProject - Project LearningScala runs on platform default installation.
+2018-02-15 15:35:43,274  WARN [Worker-13] - ScalaProject - Project LearningScala has platform default sourceLevel.
+2018-02-15 15:35:43,274  WARN [Worker-13] - ScalaProject - Project LearningScala runs on platform default installation.
