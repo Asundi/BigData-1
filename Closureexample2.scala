@@ -14,6 +14,6 @@ def getComputation =(empID : Int) =>{
 							1004 -> 6.50,
 							1005 -> 30.00)
  // anonymous function with closures
- (empI,e(empId) * p(empId) / 100.00)
+ (empID,e(empId) * p(empId) / 100.00)
 							
 }
