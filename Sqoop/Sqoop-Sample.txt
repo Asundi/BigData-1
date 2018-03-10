@@ -1,0 +1,46 @@
+##################################################
+Cloudera VM using Sqoop to extract data into HDFS
+##################################################
+
+
+
+1.Setup mysql data base
+
+      su
+      cloudera
+
+2.Under root account login to mysql
+
+      mysql -u root -p
+      pwd: cloudera
+
+
+      show tables;
+
+
+3.Create Database
+
+      create database myfirsttutorial;
+
+      use myfirsttutorial;
+
+4.Create Table
+
+      create table mytable (ID int,name varchar(20),address varchar(20));
+
+      describe table;
+
+5. Insert data into table
+
+      insert into mytable values(1,"Tata","Mumbai),(2,"Ambani","Gujrath"),(3,"Narayan Murthy","Bangalore");
+
+
+6. Sqoop the data intoi Hdfs
+     
+     sqoop import --connect jdbc:mysql://quickstart:3306/myfirsttutorial --username root --password cloudera --table mytable --target-dir=/user/cloudera/myfirstdata -m 1
+
+7. Check if file exists in hdfs
+
+     hadoop fs -cat /user/cloudera/myfirstdata
+     hadoop fs -ls /user/cloudera/myfirstdata
+
