@@ -1,0 +1,209 @@
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--hive-import \
+--hive-database cloudera_sqoop_import \
+--hive-table order_items \
+--num-mappers 2
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--hive-import \
+--hive-database cloudera_sqoop_import \
+--hive-table order_items \
+--hive-overwrite \
+--num-mappers 2
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--hive-import \
+--hive-database cloudera_sqoop_import \
+--hive-table order_items \
+--create-hive-table \
+--num-mappers 2
+
+
+Logging initialized using configuration in jar:file:/usr/lib/hive/lib/hive-common-1.1.0-cdh5.12.0.jar!/hive-log4j.properties
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table order_items already exists)
+
+// sqoop import all tables:
+
+
+sqoop import-all-tables \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--autoreset-to-one-mapper
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table orders \
+--hive-import \
+--hive-database cloudera_sqoop_import \
+--hive-table orders \
+--hive-overwrite \
+--num-mappers 2
+
+ SET hive.auto.convert.join=false;
+
+create table daily_revenue as
+select order_date, sum(order_item_subtotal) daily_revenue
+from orders join order_items on
+order_id = order_item_order_id
+where order_date like '2013-07%'
+group by order_date
+
+
+
+create table daily_revenue(
+order_date varchar(30),
+revenue float
+);
+
+
+/user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue
+
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue \
+--input-fields-terminated-by "\001" \
+--num-mappers 1
+
+
+hive> select order_date, sum(order_item_subtotal) daily_revenue
+    > from orders join order_items on
+    > order_id = order_item_order_id
+    > group by order_date limit 10;
+Query ID = cloudera_20180316030909_a988c571-1305-4c76-9003-130d983d365a
+Total jobs = 1
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.mr.MapredLocalTask
+
+
+
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue_demo \
+--input-fields-terminated-by "\001" \
+--num-mappers 1
+
+
+create table daily_revenue_demo(
+revenue float,
+order_date varchar(30),
+description varchar(200)
+);
+
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue_demo \
+--columns order_date,revenue \
+--input-fields-terminated-by "\001" \
+--num-mappers 1
+
+
+create table daily_revenue(
+order_date varchar(30) primary key,
+revenue float,
+);
+
+
+
+
+
+run export twice 
+
+first time fine
+second time it fails
+
+to overcome this 2 arguements to update
+
+
+insert into table daily-revenue
+ select order_date, sum(order_item_subtotal) daily_revenue
+from orders join order_items on
+order_id = order_item_order_id
+where order_date like '2013-08%'
+group by order_date
+
+
+//update mode
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue \
+--update-key order_date \ 
+--input-fields-terminated-by "\001" \
+--num-mappers 1
+
+
+//upsert mode
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue \
+--update-key order_date \ 
+--update-mode allowinsert \
+--input-fields-terminated-by "\001" \
+--num-mappers 1
+
+
+insert into table daily_revenue
+select order_date, sum(order_item_subtotal) daily_revenue
+from orders join order_items on
+order_id = order_item_order_id
+group by order_date
+
+//hive table will load all 300 records
+
+// create table in mysql daily_revenue and insert one record
+sqoop export \
+--connect jdbc:mysql://quickstart:3306/retail_export \
+--username root \
+--password cloudera \
+--export-dir /user/hive/warehouse/cloudera_sqoop_import.db/daily_revenue \
+--table daily_revenue \
+--staging-table daily_revenue_stage \
+--clear-staging-table \
+--input-fields-terminated-by "\001" 
+
+//create stage table in mysql
+
+create table daily_revenue_stage(
+order_date varchar(30) primary key,
+revenue float,
+);
+
+//insert one record
+insert into daily_revenue ("2014-07-01 00:00:00.0", 0);
+
+
+hive table:daily_revenue -> mysql daily_revenue_stage
+insert into daily_revenue select* from daily_revenue_stage;
+
+
