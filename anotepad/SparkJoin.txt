@@ -1,0 +1,113 @@
+// Joining orders and order_items
+
+val orders = sc.textFile("retail_db/orders")
+val orderItems =sc.textFile("retail_db/order_items")
+
+val ordersMap= orders.map(order => (order.split(",")(0).toInt,order.split(",")(1).substring(0,10)))
+scala> ordersMap.take(10).foreach(println)
+(1,2013-07-25)
+(2,2013-07-25)
+(3,2013-07-25)
+(4,2013-07-25)
+(5,2013-07-25)
+(6,2013-07-25)
+(7,2013-07-25)
+(8,2013-07-25)
+(9,2013-07-25)
+(10,2013-07-25)
+
+
+val orderItemsMap = orderItems.map(orderItem => {
+
+val oi= orderItem.split(",")
+(oi(1).toInt, oi(4).toFloat)
+})
+
+orderItemsMap.take(10).foreach(println)
+
+orderItems.count
+orderItemsMap.count
+
+val orderJoin = ordersMap.join(orderItemsMap)
+
+scala> orderJoin.take(10).foreach(println)
+(41234,(2014-04-04,109.94))                                                     
+(65722,(2014-05-23,119.98))
+(65722,(2014-05-23,400.0))
+(65722,(2014-05-23,399.98))
+(65722,(2014-05-23,199.95))
+(65722,(2014-05-23,199.98))
+(28730,(2014-01-18,299.95))
+(28730,(2014-01-18,50.0))
+(68522,(2014-06-05,329.99))
+(23776,(2013-12-20,199.99))
+
+
+//Get all the orders which do not have corresponding entries in orderitems
+
+val orders = sc.textFile("retail_db/orders")
+val orderItems =sc.textFile("retail_db/order_items")
+
+
+val ordersMap= orders.map(order => (order.split(",")(0).toInt, order))
+
+val orderItemsMap = orderItems.map(orderItem => {
+val oi= orderItem.split(",")
+(oi(1).toInt, orderItem)
+})
+
+val ordersLeftOuterjoin = ordersMap.leftOuterJoin(orderItemsMap)
+
+val ordersLeftOuterJOinFilter = ordersLeftOuterJOin.filter(order =>  order._2._2 =="None")
+
+scala> ordersLeftOuterJOinFilter.count
+res12: Long = 11452
+
+scala> ordersLeftOuterJOinFilter.take(10).foreach(println)
+(5354,(5354,2013-08-26 00:00:00.0,7616,PENDING_PAYMENT,None))
+(40888,(40888,2014-04-02 00:00:00.0,4528,CLOSED,None))
+(62490,(62490,2014-01-22 00:00:00.0,8942,ON_HOLD,None))
+(63508,(63508,2014-02-28 00:00:00.0,1607,COMPLETE,None))
+(37370,(37370,2014-03-12 00:00:00.0,10541,COMPLETE,None))
+(12420,(12420,2013-10-09 00:00:00.0,449,PENDING,None))
+(1732,(1732,2013-08-03 00:00:00.0,2851,PENDING_PAYMENT,None))
+(1550,(1550,2013-08-02 00:00:00.0,3043,PENDING_PAYMENT,None))
+(2938,(2938,2013-08-10 00:00:00.0,116,COMPLETE,None))
+(21834,(21834,2013-12-06 00:00:00.0,12334,COMPLETE,None))
+
+val ordersWithNoOrderItem =  ordersLeftOuterJOinFilter.map(order => order._2._1)
+
+scala> ordersWithNoOrderItem.take(10).foreach(println)
+5354,2013-08-26 00:00:00.0,7616,PENDING_PAYMENT
+40888,2014-04-02 00:00:00.0,4528,CLOSED
+62490,2014-01-22 00:00:00.0,8942,ON_HOLD
+63508,2014-02-28 00:00:00.0,1607,COMPLETE
+37370,2014-03-12 00:00:00.0,10541,COMPLETE
+12420,2013-10-09 00:00:00.0,449,PENDING
+1732,2013-08-03 00:00:00.0,2851,PENDING_PAYMENT
+1550,2013-08-02 00:00:00.0,3043,PENDING_PAYMENT
+2938,2013-08-10 00:00:00.0,116,COMPLETE
+21834,2013-12-06 00:00:00.0,12334,COMPLETE
+
+val ordersRightOuterJoin = orderItemsMap.rightOuterJoin(ordersMap)
+
+val orderWithNoOrderItem = ordersRightOuterJoin.
+filter(order => order._2._1 == None).
+map(order => order._2._2)
+
+scala> orderWithNoOrderItem.take(10).foreach(println)
+5354,2013-08-26 00:00:00.0,7616,PENDING_PAYMENT                                 
+40888,2014-04-02 00:00:00.0,4528,CLOSED
+62490,2014-01-22 00:00:00.0,8942,ON_HOLD
+63508,2014-02-28 00:00:00.0,1607,COMPLETE
+37370,2014-03-12 00:00:00.0,10541,COMPLETE
+12420,2013-10-09 00:00:00.0,449,PENDING
+1732,2013-08-03 00:00:00.0,2851,PENDING_PAYMENT
+1550,2013-08-02 00:00:00.0,3043,PENDING_PAYMENT
+21834,2013-12-06 00:00:00.0,12334,COMPLETE
+2938,2013-08-10 00:00:00.0,116,COMPLETE
+
+
+
+
+

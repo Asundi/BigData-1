@@ -1,0 +1,313 @@
+sqoop list-databases \
+--connect jdbc:mysql://quickstart:3306 \
+--username root \
+--password cloudera
+
+
+sqoop list-tables \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera
+
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--query "SELECT * FROM orders LIMIT 10"
+
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--query "INSERT INTO orders VALUES(10000, '2017-10-31 00:00:00.0', 100000, \
+'DUMMY')"
+
+
+
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/myfirsttutorial \
+--username root \
+--password cloudera \
+--query "CREATE TABLE dummy (i INT)"
+
+
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/myfirsttutorial \
+--username root \
+--password cloudera \
+--query "INSERT INTO dummy Values(1)"
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/myfirsttutorial \
+--username root \
+--password cloudera \
+--query "SELECT * FROM dummy"
+
+sqoop eval \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--query "SELECT * FROM order_items LIMIT 10"
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+-- num-mappers 1 \
+--delete-target-dir
+
+
+
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+-- num-mappers 1 \
+--append
+hadoop fs -rm -R /user/cloudera/sqoop_import/retail_db/order_items
+
+create table order_items_nopk as select * from order_items;
+
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items_nopk \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db
+
+No primary key could be found for table order_items_nopk. Please specify one with --split-by or perform a sequential import with '-m 1
+
+// Things to remember for split-by
+// Column should be indexed
+// -select * from order_items_nopk where order_item_id  >=1 and order_item_id < 43049
+// values in the field should be sparse
+// also often it should be sequence generated or evenly incremented
+// it should not have null values
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \hadoop fs -get /user/cloudera/sqoop_import/retail_db/order_items
+--password cloudera \
+--table order_items_nopk \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db
+--split-by order_item_order_id
+
+
+
+sqoop import \
+-Dorg.apache.sqoop.splitter.allow_text_splitter=true \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table orders \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--split-by order_status
+
+hadoop fs -ls /user/cloudera/sqoop_import/retail_db/orders
+hadoop fs -get /user/cloudera/sqoop_import/retail_db/order_items
+hadoop fs -tail /user/cloudera/sqoop_import/retail_db/orders/part-m-00000
+
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items_nopk \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--autoreset-to-one-mapper
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+-- num-mappers 2 \
+--as-sequencefile
+
+
+hadoop fs -ls /user/cloudera/sqoop_import/retail_db/order_items
+
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--num-mappers 2 \
+--as-textfile \
+--compress 
+
+hadoop fs -get /user/cloudera/sqoop_import/retail_db/order_items order_items
+
+ cd order_items
+ls -ltr
+
+gunzip part*.gz
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--num-mappers 2 \
+--as-textfile \
+--compress \
+--compress-codec org.apache.hadoop.io.compress.SnappyCodec
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--boundary-query 'select min(order_item_id),max(order_item_id) from order_items where order_item_id > 99999'
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--boundary-query 'select 100000, 172198'
+
+table and/or columns is mutually exclusive with query
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--columns order_item_order_id,order_item_id,order_item_subtotal \
+--warehouse-dir /user/cloudera/sqoop_import/retail_db \
+--num-mappers 2
+
+
+select o.* , sum(oi.order_item_subtotal) order_revenue from orders o join order_items oi on order_id = oi.order_item_order_id group by o.order_id,o.order_date,o.order_customer_id,o.order_status;
+
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--target-dir /user/cloudera/sqoop_import/retail_db/orders_with_revenue \
+--num-mappers 2 \
+--query "select o.* , sum(oi.order_item_subtotal) order_revenue from orders o join order_items oi on order_id = oi.order_item_order_id and \$CONDITIONS group by o.order_id,o.order_date,o.order_customer_id,o.order_status" \
+--split-by order_id
+
+#table and /or columns is mutually exclusive with query
+#for query split-by is mandatory if num-mappers is greater than 1
+#query should have a placeholder \$CONDITIONS
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/hr_db \
+--username root \
+--password cloudera \
+--table employees \
+--warehouse-dir /user/cloudera/sqoop_import/hr_db
+
+hadoop fs -get /user/cloudera/sqoop_import/hr_db/employees .
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/hr_db \
+--username root \
+--password cloudera \
+--table employees \
+--warehouse-dir /user/cloudera/sqoop_import/hr_db \
+--null-non-string -1 \
+--fields-terminated-by "\t" \
+--lines-terminated-by ":"
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/hr_db \
+--username root \
+--password cloudera \
+--table employees \
+--warehouse-dir /user/cloudera/sqoop_import/hr_db \
+--null-non-string -1 \
+--fields-terminated-by "\000" \
+--lines-terminated-by ":"
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--target-dir /user/cloudera/sqoop_import/retail_db/orders \
+--num-mappers 2 \
+--query "select* from orders where \$CONDITIONS and order_date like '2013-%'" \
+--split-by order_id
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--target-dir /user/cloudera/sqoop_import/retail_db/orders \
+--num-mappers 2 \
+--query "select* from orders where \$CONDITIONS and order_date like '2014-01%'" \
+--split-by order_id \
+--append
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--target-dir /user/cloudera/sqoop_import/retail_db/orders \
+--num-mappers 2 \
+--table orders \
+--where "order_date like '2014-02%'" \
+--append
+
+
+sqoop import \
+--connect jdbc:mysql://quickstart:3306/retail_db \
+--username root \
+--password cloudera \
+--target-dir /user/cloudera/sqoop_import/retail_db/orders \
+--num-mappers 2 \
+--table orders \
+--check-column order_date \
+--incremental append \
+--last-value '2014-02-28'
+
+
+18/03/15 06:07:51 INFO mapreduce.ImportJobBase: Retrieved 26678 records.
+18/03/15 06:07:51 INFO util.AppendUtils: Appending to directory orders
+18/03/15 06:07:51 INFO util.AppendUtils: Using found partition 6
+18/03/15 06:07:51 INFO tool.ImportTool: Incremental import complete! To run another incremental import of all data following this import, supply the following arguments:
+18/03/15 06:07:51 INFO tool.ImportTool:  --incremental append
+18/03/15 06:07:51 INFO tool.ImportTool:   --check-column order_date
+18/03/15 06:07:51 INFO tool.ImportTool:   --last-value 2014-07-24 00:00:00.0
+18/03/15 06:07:51 INFO tool.ImportTool: (Consider saving this with 'sqoop job --create')
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+Java8 - http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+Hadoop - http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.4/
+hadoop-2.7.4.tar.gz   
+http://www.apache.org/dyn/closer.cgi/hadoop/common
+
+
+Hive -
+
+
+http://www.apache.org/dyn/closer.cgi/hive/
+
+http://www-eu.apache.org/dist/hive/
+
+http://www-eu.apache.org/dist/hive/hive-2.1.1/
+
+apache-hive-2.1.1-bin.tar.gz   
+
+
+
+Hbase:
+
+https://hbase.apache.org/
+
+
+download click here-mirror site opens
+http://www-us.apache.org/dist/hbase/
+ hbase-1.2.6-bin.tar.gz  
+

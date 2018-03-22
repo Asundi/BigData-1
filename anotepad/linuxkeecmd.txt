@@ -1,0 +1,45 @@
+	
+Where should it be? By default when you open the file manager you run around your home directory(/home/username), same as in windows C:\Users\Username . Notice how /usr/local starts with backslash ? There's root directory from which you can access other directories; the image to keep in mind is the root directory is where root starts, and everything else is branching form it
+
+How to access the folder you need:
+
+Method #1 : press CtrlL in the file manager ( which is called nautilus, by the way) and type /usr/local into the address bar or / .
+
+Method#2: Pressing repeatedly AltArrow Up buttown in file manager will get you to root directory (which is like C:\ folder in windows), and navigate graphically to whatever folder you need from there.
+
+Method #3: Press AltF2 to open "Run command" dialogue and type nautilus /usr/local
+
+
+
+!q
+
+!wq
+
+
+sudo su
+
+export JAV_HOME=/usr/java/jdk1.8.0_161
+
+export PATH=$PATH:/usr/java/jdk1.8.0_161/bin
+
+echo $JAVA_HOME  //CHECK IF SET OR NOT
+
+ctrl+alt +t  -- terminal window
+
+
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.4.jar
+
+
+cd /home
+cd keerthan
+
+cd hadoop-install
+
+cd hadoop-2.7.4
+
+
+
+
+
+
+
