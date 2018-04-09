@@ -1,0 +1,83 @@
+mkdir flume_demo
+cd flume-demo/
+vi example.conf
+
+# example.conf: A single-node Flume configuration
+
+# Name the components on this agent
+a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+# Describe/configure the source
+a1.sources.r1.type = netcat
+a1.sources.r1.bind = localhost
+a1.sources.r1.port = 44444
+
+# Describe the sink
+a1.sinks.k1.type = logger
+
+# Use a channel which buffers events in memory
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+a1.channels.c1.transactionCapacity = 100
+
+
+# Bind the source and sink to the channel
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1
+
+
+flume-ng agent --name a1 --conf-file /home/cloudera/flume_demo/example.conf
+
+
+yum install telnet
+
+telnet localhost 44444
+
+gsjhg
+dfjdshf
+
+in other terminal window all the activities are read.
+
+
+http://archive-primary.cloudera.com/cdh5/cdh/5/flume-ng-1.6.0-cdh5.10.1/FlumeUserGuide.html
+
+
+//webserver logs
+
+ [cloudera@quickstart ~]$ hostname
+quickstart.cloudera
+[cloudera@quickstart ~]$ cd /opt/gen_logs/
+[cloudera@quickstart gen_logs]$ ls -ltr
+total 24
+-rwxr-xr-x 1 cloudera cloudera   51 Aug  1  2014 tail_logs.sh
+drwxr-xr-x 2 cloudera cloudera 4096 Sep 25  2014 logs
+drwxr-xr-x 2 cloudera cloudera 4096 Sep 25  2014 data
+-rwxr-xr-x 1 cloudera cloudera   76 Oct  8  2014 start_logs.sh
+-rwxr-xr-x 1 cloudera cloudera  131 May 14  2015 stop_logs.sh
+drwxr-xr-x 2 cloudera cloudera 4096 Jul 19  2017 lib
+
+
+[cloudera@quickstart logs]$ tail -F /opt/gen_logs/logs/access.log
+
+[cloudera@quickstart ~]$ cd flume_demo
+[cloudera@quickstart flume_demo]$ ls -ltr
+total 4
+-rw-rw-r-- 1 cloudera cloudera 541 Mar 17 08:45 example.conf
+
+[cloudera@quickstart flume_demo]$ mkdir wslogstohdfs
+[cloudera@quickstart flume_demo]$ cp example.conf wslogstohdfs/
+[cloudera@quickstart flume_demo]$ mv example.conf wshdfs.conf
+
+wshdfs.conf edit file
+
+[cloudera@quickstart wslogstohdfs]$ flume-ng agent -n wh -f /home/cloudera/flume_demo/wshdfs.conf
+
+//
+hadoop fs -rm -R /home/cloudera/flume_demo
+
+
+hdfs://quickstart.cloudera:8020
+[cloudera@quickstart ~]$ hadoop fs -cat /user/keerthan/flume_demo/FlumeDemo.1521645624973.txt | wc -l
+10

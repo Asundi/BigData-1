@@ -1,0 +1,129 @@
+http://www.apache.org/dyn/closer.cgi/hive
+
+download hive 2.1.1
+export PATH=$PATH:/usr/local/hadoop/bin/
+
+[root@localhost hive-install]# export HIVE_HOME=/home/keerthan/hive-install/apache-hive-2.1.1-bin
+[root@localhost hive-install]# echo $HIVE_HOME
+/home/keerthan/hive-install/apache-hive-2.1.1-bin
+[root@localhost hive-install]# export PATH=$PATH:$HIVE_HOME/bin
+[root@localhost hive-install]# echo $PATH
+/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/keerthan/.local/bin:/home/keerthan/bin:/home/keerthan/hive-install/apache-hive-2.1.1-bin/bin
+[root@localhost hive-install]# echo $HADOOP_HOME
+
+[root@localhost hive-install]# export HADOOP_HOME=/home/keerthan/hadoop-install/hadoop-2.7.4
+[root@localhost hive-install]# echo $HADOOP_HOME/home/keerthan/hadoop-install/hadoop-2.7.4
+[root@localhost hive-install]# export PATH=$PATH:$HADOOP_HOME/bin
+[root@localhost hive-install]# 
+export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:
+
+export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.
+
+
+ hadoop dfsadmin -safemode leave
+hadoop fs -mkdir /tmp
+
+hadoop fs -mkdir /user
+
+[root@localhost conf]# hadoop fs -mkdir /user/hive
+
+
+ hadoop fs -chmod g+w /tmp
+[root@localhost conf]# hadoop fs -chmod g+w /user/hive/warehouse
+
+
+[root@localhost conf]# hadoop fs -mkdir /tmp
+[root@localhost conf]# hadoop fs -mkdir /user
+[root@localhost conf]# hadoop fs -mkdir /user/hive
+[root@localhost conf]# hadoop fs -mkdir /user/hive/warehouse
+[root@localhost conf]# hadoop fs -chmod g+w /tmp
+[root@localhost conf]# hadoop fs -chmod g+w /user/hive/warehouse
+[root@localhost conf]# hive
+[root@localhost apache-hive-2.1.1-bin]# mv metastore_db metastore_db.tmp
+[root@localhost apache-hive-2.1.1-bin]# schematool -initSchema -dbType derby
+
+hive> show databases;
+
+[root@localhost apache-hive-2.1.1-bin]# bin/beeline -u jdbc:hive2://
+
+
+0: jdbc:hive2://> create database pluralsight;
+
+0: jdbc:hive2://> use pluralsight;
+
+0: jdbc:hive2://> create table customers(
+. . . . . . . . > id bigint,
+. . . . . . . . > name string,
+. . . . . . . . > address string
+. . . . . . . . > );
+
+0: jdbc:hive2://> show tables;
+OK
++------------+--+
+|  tab_name  |
++------------+--+
+| customers  |
++------------+--+
+1 row selected (0.182 seconds)
+0: jdbc:hive2://> describe customers;
+OK
++-----------+------------+----------+--+
+| col_name  | data_type  | comment  |
++-----------+------------+----------+--+
+| id        | bigint     |          |
+| name      | string     |          |
+| address   | string     |          |
++-----------+------------+----------+--+
+3 rows selected (0.461 seconds)
+
+0: jdbc:hive2://> insert into customers values (1111,"John","WA");
+
+
+0: jdbc:hive2://> select * from customers;
+OK
++---------------+-----------------+--------------------+--+
+| customers.id  | customers.name  | customers.address  |
++---------------+-----------------+--------------------+--+
+| 1111          | John            | WA                 |
++---------------+-----------------+--------------------+--+
+
+0: jdbc:hive2://> insert into customers values(2222,"Emily","WA"),(3333,"Rick","WA"),(4444,"Jane","CA");
+
+
+select * from customers;
+OK
++---------------+-----------------+--------------------+--+
+| customers.id  | customers.name  | customers.address  |
++---------------+-----------------+--------------------+--+
+| 1111          | John            | WA                 |
+| 2222          | Emily           | WA                 |
+| 3333          | Rick            | WA                 |
+| 4444          | Jane            | CA                 |
++---------------+-----------------+--------------------+--+
+
+: jdbc:hive2://> select * from customers where address="WA";
+OK
++---------------+-----------------+--------------------+--+
+| customers.id  | customers.name  | customers.address  |
++---------------+-----------------+--------------------+--+
+| 1111          | John            | WA                 |
+| 2222          | Emily           | WA                 |
+| 3333          | Rick            | WA                 |
++---------------+-----------------+--------------------+--+
+
+Hive UDF
+https://cwiki.apache.org/confluence/display/Hive/LanguageManual +UDF
+
+
+0: jdbc:hive2://> select address, count(*) from customers group by address;
++----------+-----+--+
+| address  | c1  |
++----------+-----+--+
+| CA       | 1   |
+| WA       | 3   |
++----------+-----+--+
+
+
+Ctrl+L clear screen
+
+

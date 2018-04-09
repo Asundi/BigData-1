@@ -1,0 +1,97 @@
+scala> val ordersRDD = sc.textFile("retail_db/orders")
+ordersRDD: org.apache.spark.rdd.RDD[String] = retail_db/orders MapPartitionsRDD[5] at textFile at <console>:27
+
+scala> ordersRDD.take(10).foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+6,2013-07-25 00:00:00.0,7130,COMPLETE
+7,2013-07-25 00:00:00.0,4530,COMPLETE
+8,2013-07-25 00:00:00.0,2911,PROCESSING
+9,2013-07-25 00:00:00.0,5657,PENDING_PAYMENT
+10,2013-07-25 00:00:00.0,5648,PENDING_PAYMENT
+
+
+// difference between rdd and dataframe is in its structure to convert rdd to dataframe
+
+val ordersDF = ordersRDD.map(order => {
+   (order.split(",")(0).toInt, order.split(",")(1), order.split(",")(2).toInt , order.split(",")(3))
+}).toDF
+
+ordersDF: org.apache.spark.sql.DataFrame = [_1: int, _2: string, _3: int, _4: string]
+
+scala> ordersDF.show()
++---+--------------------+-----+---------------+
+| _1|                  _2|   _3|             _4|
++---+--------------------+-----+---------------+
+|  1|2013-07-25 00:00:...|11599|         CLOSED|
+|  2|2013-07-25 00:00:...|  256|PENDING_PAYMENT|
+|  3|2013-07-25 00:00:...|12111|       COMPLETE|
+|  4|2013-07-25 00:00:...| 8827|         CLOSED|
+|  5|2013-07-25 00:00:...|11318|       COMPLETE|
+|  6|2013-07-25 00:00:...| 7130|       COMPLETE|
+|  7|2013-07-25 00:00:...| 4530|       COMPLETE|
+|  8|2013-07-25 00:00:...| 2911|     PROCESSING|
+|  9|2013-07-25 00:00:...| 5657|PENDING_PAYMENT|
+| 10|2013-07-25 00:00:...| 5648|PENDING_PAYMENT|
+| 11|2013-07-25 00:00:...|  918| PAYMENT_REVIEW|
+| 12|2013-07-25 00:00:...| 1837|         CLOSED|
+| 13|2013-07-25 00:00:...| 9149|PENDING_PAYMENT|
+| 14|2013-07-25 00:00:...| 9842|     PROCESSING|
+| 15|2013-07-25 00:00:...| 2568|       COMPLETE|
+| 16|2013-07-25 00:00:...| 7276|PENDING_PAYMENT|
+| 17|2013-07-25 00:00:...| 2667|       COMPLETE|
+| 18|2013-07-25 00:00:...| 1205|         CLOSED|
+| 19|2013-07-25 00:00:...| 9488|PENDING_PAYMENT|
+| 20|2013-07-25 00:00:...| 9198|     PROCESSING|
++---+--------------------+-----+---------------+
+
+val ordersDF = ordersRDD.map(order => {
+   (order.split(",")(0).toInt, order.split(",")(1), order.split(",")(2).toInt , order.split(",")(3))
+}).toDF("order_id", "order_date" ,"order_customer_id", "order_status")
+
+ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
+
+scala> ordersDF.printSchema
+root
+ |-- order_id: integer (nullable = false)
+ |-- order_date: string (nullable = true)
+ |-- order_customer_id: integer (nullable = false)
+ |-- order_status: string (nullable = true)
+
+
+ordersDF .registerTempTable("orders")
+
+sqlContext.sql("select * from orders").show()
+
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
+|       6|2013-07-25 00:00:...|             7130|       COMPLETE|
+|       7|2013-07-25 00:00:...|             4530|       COMPLETE|
+
+
+sqlContext.sql("select order_status,count(1) from orders group by order_status").show()
+
+|   order_status|  _c1|
++---------------+-----+
+|        PENDING| 7610|
+|        ON_HOLD| 3798|
+| PAYMENT_REVIEW|  729|
+|PENDING_PAYMENT|15030|
+|     PROCESSING| 8275|
+|         CLOSED| 7556|
+|       COMPLETE|22899|
+|       CANCELED| 1428|
+|SUSPECTED_FRAUD| 1558|
++---------------+-----+
+
+
+val productsRaw = scala.io.Source.fromFile("/home/cloudera/data-master/retail_db/products/part-00000").getLines

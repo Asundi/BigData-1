@@ -4,9 +4,9 @@
 //Aggregation - using actions
 
 val orders = sc.textFile("retail_db/orders")
-orders.map(order =&gt; (order.split(",")(3),"")).countByKey.foreach(println)
+orders.map(order => (order.split(",")(3),"")).countByKey.foreach(println)
 
-scala&gt; orders.map(order =&gt; (order.split(",")(3),"")).countByKey.foreach(println)
+scala> orders.map(order => (order.split(",")(3),"")).countByKey.foreach(println)
 (PAYMENT_REVIEW,729) 
 (CLOSED,7556)
 (SUSPECTED_FRAUD,1558)
@@ -18,13 +18,14 @@ scala&gt; orders.map(order =&gt; (order.split(",")(3),"")).countByKey.foreach(pr
 (CANCELED,1428)
 
 val orderItems = sc.textFile("retail_db/order_items")
-scala&gt; orderItemsRevenue.reduce((total, revenue) =&gt; total + revenue)
+
+
+val orderItemsRevenue = orderItems.map(oi =>oi.split(",")(4).toFloat)
+scala> orderItemsRevenue.reduce((total, revenue) => total + revenue)
 res25: Float = 3.4326256E7
 
-val orderItemsRevenue = orderItems.map(oi =&gt;oi.split(",")(4).toFloat)
-
-scala&gt; val orderItemsMaxRevenue = orderItemsRevenue.reduce((max,revenue) =&gt; {
- | if (max &lt; revenue)
+scala> val orderItemsMaxRevenue = orderItemsRevenue.reduce((max,revenue) => {
+ | if (max > revenue)
  | revenue
  | else
  | max
@@ -125,4 +126,131 @@ aggregateByKey((0.0f, 0.0f))(
    (total, inter) => (total._1 +inter._1, if(total._2 >inter._2) total._2 else inter._2)
 )
 //(order_id, (order_revenue, max_order_item_subtotal))
+
+
+//Sorting - sortByKey
+
+val products =  sc.textFile("retail_db/products")
+
+val prodcutsMap =products.
+map(product => (product.split (",")(1).toInt,product))
+
+val productsSortedByCategoryId = prodcutsMap.sortByKey()
+
+//for descending order
+val productsSortedByCategoryId = prodcutsMap.sortByKey(false)
+
+val prodcutsMap =products.
+filter(product => product.split(",")(4) !="").
+map(product => ((product.split (",")(1).toInt, -product.split(",")(4).toFloat), product))
+
+val productsSortedByCategoryId = prodcutsMap.sortByKey().map(rec => rec._2)
+
+//Ranking -Global (details of top 10 products)
+
+val products =  sc.textFile("retail_db/products")
+
+val prodcutsMap = products.
+filter(product => product.split(",")(4) !="").
+map(product => (product.split (",")(4).toFloat , product))
+
+val productsSortedByPrice = prodcutsMap.sortByKey(false)
+productsSortedByPrice.take(10).foreach(println)
+
+//takeordered approach for global ranking
+
+val products =  sc.textFile("retail_db/products")
+
+products.
+filter(product => product.split(",")(4) !="").
+takeOrdered(10)(Ordering[Float].reverse.on(product => product.split(",")(4).toFloat))
+
+//Ranking - Get top N priced products with in each product category
+
+val products =  sc.textFile("retail_db/products")
+
+val productsMap =  products.
+   filter(product => product.split(",")(4) !="").
+   map(product => (product.split(",")(1).toInt, product ))
+
+val productsGropByCategory = productsMap.groupByKey
+
+ val productsIterable = productsGropByCategory.first._2
+
+
+ val productsIterable = productsGropByCategory.first._2
+
+scala> productsIterable.map(p => p.split(",")(4).toFloat)
+res2: Iterable[Float] = List(59.99, 59.99, 169.99, 169.99, 149.99, 149.99, 149.99, 129.99, 129.99, 129.99, 99.99, 99.99, 99.99, 149.99, 149.99, 149.99, 99.99, 99.99, 139.99, 139.99, 139.99, 139.99, 34.99, 99.99)
+
+scala> productsIterable.map(p => p.split(",")(4).toFloat).toSet
+res3: scala.collection.immutable.Set[Float] = Set(99.99, 169.99, 149.99, 59.99, 129.99, 34.99, 139.99)
+
+scala> val productPrices = productsIterable.map(p => p.split(",")(4).toFloat).toSet
+productPrices: scala.collection.immutable.Set[Float] = Set(99.99, 169.99, 149.99, 59.99, 129.99, 34.99, 139.99)
+
+scala>  productPrices.toList
+res4: List[Float] = List(99.99, 169.99, 149.99, 59.99, 129.99, 34.99, 139.99)
+
+scala>  productPrices.toList.sortBy(p => -p)
+res6: List[Float] = List(169.99, 149.99, 139.99, 129.99, 99.99, 59.99, 34.99)
+
+scala>  productPrices.toList.sortBy(p => -p).take(5)
+res7: List[Float] = List(169.99, 149.99, 139.99, 129.99, 99.99)
+
+
+
+def getTopNPricedProducts(productsIterable : Iterable[String], topN: Int) : Iterable[String] = {
+
+     val productPrices = productsIterable.map(p => p.split(",")(4).toFloat).toSet
+     val topNPrices = productPrices.toList.sortBy(p => -p).take(topN)
+     val productsSorted = productsIterable.toList.sortBy(product => -product.split(",")(4).toFloat)
+     val minOfTopNPrices =topNPrices.min
+     val topNPricedProducts = productsSorted.takeWhile( product => product.split(",")(4).toFloat >= minOfTopNPrices)
+ 
+    topNPricedProducts
+}
+
+ val productsIterable = productsGropByCategory.first._2
+
+val productPrices = productsIterable.map(p => p.split(",")(4).toFloat).toSet
+
+val topNPrices = productPrices.toList.sortBy(p => -p).take(5)
+
+// Get all the products in descending order by price
+val productsSorted = productsIterable.toList.sortBy(product => -product.split(",")(4).toFloat)
+
+val topNPrices = productPrices.toList.sortBy(p => -p).take(5)
+
+
+scala> val minOfTopNPrices =topNPrices.min
+minOfTopNPrices: Float = 99.99
+
+val topNPricedProducts = productsSorted.takeWhile( product => product.split(",")(4).toFloat >= minOfTopNPrices)
+
+
+scala> getTopNPricedProducts(productsIterable,5).foreach(println)
+743,34,Ogio Race Golf Shoes,,169.99,http://images.acmesports.sports/Ogio+Race+Golf+Shoes
+744,34,Ogio Race Golf Shoes,,169.99,http://images.acmesports.sports/Ogio+Race+Golf+Shoes
+745,34,Ogio City Spiked Golf Shoes,,149.99,http://images.acmesports.sports/Ogio+City+Spiked+Golf+Shoes
+746,34,Ogio City Spiked Golf Shoes,,149.99,http://images.acmesports.sports/Ogio+City+Spiked+Golf+Shoes
+747,34,Ogio City Spiked Golf Shoes,,149.99,http://images.acmesports.sports/Ogio+City+Spiked+Golf+Shoes
+754,34,TRUE linkswear Lyt Dry Golf Shoes,,149.99,http://images.acmesports.sports/TRUE+linkswear+Lyt+Dry+Golf+Shoes
+755,34,TRUE linkswear Lyt Dry Golf Shoes,,149.99,http://images.acmesports.sports/TRUE+linkswear+Lyt+Dry+Golf+Shoes
+756,34,TRUE linkswear Lyt Dry Golf Shoes,,149.99,http://images.acmesports.sports/TRUE+linkswear+Lyt+Dry+Golf+Shoes
+759,34,Nike Lunarwaverly Golf Shoes,,139.99,http://images.acmesports.sports/Nike+Lunarwaverly+Golf+Shoes
+760,34,Nike Lunarwaverly Golf Shoes,,139.99,http://images.acmesports.sports/Nike+Lunarwaverly+Golf+Shoes
+761,34,Nike Lunarwaverly Golf Shoes,,139.99,http://images.acmesports.sports/Nike+Lunarwaverly+Golf+Shoes
+762,34,Nike Lunarwaverly Golf Shoes,,139.99,http://images.acmesports.sports/Nike+Lunarwaverly+Golf+Shoes
+748,34,Ogio City Turf Golf Shoes,,129.99,http://images.acmesports.sports/Ogio+City+Turf+Golf+Shoes
+749,34,Ogio City Turf Golf Shoes,,129.99,http://images.acmesports.sports/Ogio+City+Turf+Golf+Shoes
+750,34,Ogio City Turf Golf Shoes,,129.99,http://images.acmesports.sports/Ogio+City+Turf+Golf+Shoes
+751,34,Ogio Sport Golf Shoes,,99.99,http://images.acmesports.sports/Ogio+Sport+Golf+Shoes
+752,34,Ogio Sport Golf Shoes,,99.99,http://images.acmesports.sports/Ogio+Sport+Golf+Shoes
+753,34,Ogio Sport Golf Shoes,,99.99,http://images.acmesports.sports/Ogio+Sport+Golf+Shoes
+757,34,TRUE linkswear Vegas Golf Shoes,,99.99,http://images.acmesports.sports/TRUE+linkswear+Vegas+Golf+Shoes
+758,34,TRUE linkswear Vegas Golf Shoes,,99.99,http://images.acmesports.sports/TRUE+linkswear+Vegas+Golf+Shoes
+764,34,Nike Lunar Mount Royal Golf Shoes,,99.99,http://images.acmesports.sports/Nike+Lunar+Mount+Royal+Golf+Shoes
+
+val top3PriceProdcutsPerCategory = productsGropByCategory.flatMap(rec => getTopNPricedProducts(rec._2, 3))
 

@@ -1,0 +1,248 @@
+habse/hase-1.2.6 
+
+
+conf/hbase-site.xml
+
+export HBASE_HOME=/home/keerthan/hbase/hbase-1.2.6
+
+
+export PATH="$HBASE_HOME/bin:$PATH"
+
+
+[root@localhost hbase-1.2.6]# bin/start-hbase.sh
+
+[root@localhost hbase-1.2.6]# jps
+10226 NodeManager
+9397 DataNode
+9573 SecondaryNameNode
+13430 Jps
+9255 NameNode
+13319 HRegionServer
+12458 HQuorumPeer
+10111 ResourceManager
+
+
+localhost:16010
+
+
+[root@localhost bin]# ./hbase shell
+hbase(main):001:0> status
+1 active master, 0 backup masters, 1 servers, 0 dead, 2.0000 average load
+
+hbase(main):002:0> whoami
+root (auth:SIMPLE)
+    groups: root
+
+hbase(main):003:0> list
+TABLE                                                                           
+0 row(s) in 0.0680 seconds
+
+=> []
+
+hbase(main):004:0> create 'census','personal' 'professional'
+0 row(s) in 1.4910 seconds
+
+=> Hbase::Table - census
+
+hbase(main):007:0> describe 'census'
+Table census is ENABLED                                                         
+census                                                                          
+COLUMN FAMILIES DESCRIPTION                                                     
+{NAME => 'personalprofessional', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMOR
+Y => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL 
+=> 'FOREVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', 
+BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                                 
+1 row(s) in 0.2470 seconds
+
+
+census2
+
+
+hbase(main):011:0> count 'census2'
+0 row(s) in 0.1730 seconds
+
+hbase(main):013:0> put 'census2', 1, 'personla:name', 'Mike Jones'
+0 row(s) in 0.0440 seconds
+
+hbase(main):015:0> put 'census2', 1, 'personla:marital_status', 'unmarried'
+0 row(s) in 0.0470 seconds
+
+hbase(main):016:0> scan 'census2'
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:marital_status, timestamp=1520329590307, v
+                      alue=unmarried                                            
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+1 row(s) in 0.0550 seconds
+
+hbase(main):018:0> put 'census2', 1, 'personla:gender', 'male'
+0 row(s) in 0.0450 seconds
+
+hbase(main):019:0> scan 'census2'
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:gender, timestamp=1520330470397, value=mal
+                      e                                                         
+ 1                    column=personla:marital_status, timestamp=1520329590307, v
+                      alue=unmarried                                            
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+1 row(s) in 0.0740 seconds
+
+
+hbase(main):020:0> put 'census2',1 ,'professional:employes' ,'yes'
+0 row(s) in 0.0200 seconds
+
+hbase(main):021:0> scan 'census2'
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:gender, timestamp=1520330470397, value=mal
+                      e                                                         
+ 1                    column=personla:marital_status, timestamp=1520329590307, v
+                      alue=unmarried                                            
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+ 1                    column=professional:employes, timestamp=1520330521837, val
+                      ue=yes                                                    
+1 row(s) in 0.0590 seconds
+hbase(main):027:0> put 'census2', 3, 'personla:marital_statuse', 'married'
+0 row(s) in 0.0200 seconds
+
+hbase(main):028:0> put 'census2',3 ,'professional:education_level' ,'under-grad'
+0 row(s) in 0.0180 seconds
+
+hbase(main):030:0> put 'census2', 3, 'professional:education_level' , 'post-grad'
+0 row(s) in 0.0390 seconds
+
+
+hbase(main):033:0> count 'census2'
+2 row(s) in 0.0520 seconds
+
+
+Read operation
+
+hbase(main):034:0> get 'census2', 1
+COLUMN                CELL                                                      
+ personla:gender      timestamp=1520330470397, value=male                       
+ personla:marital_sta timestamp=1520329590307, value=unmarried                  
+ tus                                                                            
+ personla:name        timestamp=1520329537014, value=Mike Jones                 
+ professional:educati timestamp=1520330585801, value=high school                
+ on_level                                                                       
+ professional:employe timestamp=1520330521837, value=yes                        
+ s                                                                              
+ professional:field   timestamp=1520330615696, value=construction               
+6 row(s) in 0.1050 seconds
+
+
+hbase(main):035:0> get 'census2', 1, 'personla:name'
+COLUMN                CELL                                                      
+ personla:name        timestamp=1520329537014, value=Mike Jones                 
+1 row(s) in 0.0350 seconds
+
+hbase(main):036:0> get 'census2', 1, 'personla:name','professional:education_level'
+COLUMN                CELL                                                      
+ personla:name        timestamp=1520329537014, value=Mike Jones                 
+ professional:educati timestamp=1520330585801, value=high school                
+ on_level                                                                       
+2 row(s) in 0.0360 seconds
+
+hbase(main):004:0> scan 'census2', {COLUMNS => ['personla:name']}
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+ 3                    column=personla:name, timestamp=1520330694395, value=Jill 
+                      Tonpa                                                     
+2 row(s) in 0.0750 seconds
+
+hbase(main):005:0> scan 'census2', {COLUMNS => ['personla:name'],LIMIT =>1}
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+1 row(s) in 0.0500 seconds
+
+
+ row(s) in 0.0500 seconds                                                     TROW => "2"}        scan 'census2', {COLUMNS => ['personla:name'],LIMIT =>1,STAR}
+ROW                   COLUMN+CELL                                               
+ 3                    column=personla:name, timestamp=1520330694395, value=Jill 
+                      Tonpa                                                     
+1 row(s) in 0.0260 seconds
+
+
+hbase(main):007:0> scan 'census2', {COLUMNS => ['personla:name'],LIMIT =>2,STARTROW => "2"}
+ROW                   COLUMN+CELL                                               
+ 3                    column=personla:name, timestamp=1520330694395, value=Jill 
+                      Tonpa                                                     
+1 row(s) in 0.0540 seconds
+
+
+hbase(main):010:0> scan 'census2', {COLUMNS => ['personla:name'],STARTROW => "1", STOPROW => "3"}
+ROW                   COLUMN+CELL                                               
+ 1                    column=personla:name, timestamp=1520329537014, value=Mike 
+                      Jones                                                     
+1 row(s) in 0.0940 seconds
+
+DELETE COMMAND
+hbase(main):013:0> get 'census2',1
+COLUMN                CELL                                                      
+ personla:gender      timestamp=1520330470397, value=male                       
+ personla:marital_sta timestamp=1520329590307, value=unmarried                  
+ tus                                                                            
+ personla:name        timestamp=1520329537014, value=Mike Jones                 
+ professional:educati timestamp=1520330585801, value=high school                
+ on_level                                                                       
+ professional:employe timestamp=1520330521837, value=yes                        
+ s                                                                              
+ professional:field   timestamp=1520330615696, value=construction               
+6 row(s) in 0.0910 seconds
+
+hbase(main):014:0> delete 'census2', 1, 'personla:marital_status'
+0 row(s) in 0.1330 seconds
+
+hbase(main):015:0> get 'census2',1
+COLUMN                CELL                                                      
+ personla:gender      timestamp=1520330470397, value=male                       
+ personla:name        timestamp=1520329537014, value=Mike Jones                 
+ professional:educati timestamp=1520330585801, value=high school                
+ on_level                                                                       
+ professional:employe timestamp=1520330521837, value=yes                        
+ s                                                                              
+ professional:field   timestamp=1520330615696, value=construction               
+5 row(s) in 0.0240 seconds
+
+
+
+DROP TABLE 
+
+hbase(main):016:0> disable 'census2'
+0 row(s) in 2.4560 seconds
+
+hbase(main):017:0> enable 'census2'
+0 row(s) in 2.4020 seconds
+
+hbase(main):018:0> exists 'census2'
+Table census2 does exist                                                        
+0 row(s) in 0.0460 seconds
+
+hbase(main):019:0> drop 'census2'
+
+ERROR: Table census2 is enabled. Disable it first.
+
+Here is some help for this command:
+Drop the named table. Table must first be disabled:
+  hbase> drop 't1'
+  hbase> drop 'ns1:t1'
+
+hbase(main):021:0> disable 'census2'
+0 row(s) in 2.4190 seconds
+
+hbase(main):022:0> drop 'census2'
+0 row(s) in 1.3940 seconds
+
+
+MapReduce Logic
+
+hbase(main):021:0> create 'summary' , 'marital_status'
+0 row(s) in 1.3530 seconds
+
+
+
+

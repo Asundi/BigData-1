@@ -1,0 +1,40 @@
+SET hive.auto.convert.join=false;
+select o.* , c.* from orders o, customers c where o.order_customer_id = c.customer_id limit 10;
+
+22945	2013-12-13 00:00:00.0	1	COMPLETE	1	Richard	Hernandez	XXXXXXXXX	XXXXXXXXX	6303 Heather Plaza	Brownsville	TX	78521
+57963	2013-08-02 00:00:00.0	2	ON_HOLD	2	Mary	Barrett	XXXXXXXXX	XXXXXXXXX	9526 Noble Embers Ridge	Littleton	CO	80126
+33865	2014-02-18 00:00:00.0	2	COMPLETE	2	Mary	BarrettXXXXXXXXX	XXXXXXXXX	9526 Noble Embers Ridge	Littleton	CO	80126
+15192	2013-10-29 00:00:00.0	2	PENDING_PAYMENT	2	Mary	BarrettXXXXXXXXX	XXXXXXXXX	9526 Noble Embers Ridge	Littleton	CO	80126
+67863	2013-11-30 00:00:00.0	2	COMPLETE	2	Mary	BarrettXXXXXXXXX	XXXXXXXXX	9526 Noble Embers Ridge	Littleton	CO	80126
+46399	2014-05-09 00:00:00.0	3	PROCESSING	3	Ann	Smith	XXXXXXXXX	XXXXXXXXX	3422 Blue Pioneer Bend	Caguas	PR	00725
+22646	2013-12-11 00:00:00.0	3	COMPLETE	3	Ann	Smith	XXXXXXXXX	XXXXXXXXX	3422 Blue Pioneer Bend	Caguas	PR	00725
+56178	2014-07-15 00:00:00.0	3	PENDING	3	Ann	Smith	XXXXXXXXX	XXXXXXXXX	3422 Blue Pioneer Bend	Caguas	PR	00725
+35158	2014-02-26 00:00:00.0	3	COMPLETE	3	Ann	Smith	XXXXXXXXX	XXXXXXXXX	3422 Blue Pioneer Bend	Caguas	PR	00725
+23662	2013-12-19 00:00:00.0	3	COMPLETE	3	Ann	Smith	XXXXXXXXX	XXXXXXXXX	3422 Blue Pioneer Bend	Caguas	PR	00725
+Time taken: 32.937 seconds, Fetched: 10 row(s)
+
+
+select o.* , c.* from orders o join customers c
+on o.order_customer_id = c.customer_id
+limit 10;
+
+
+select count(1) from orders o join customers c
+on o.order_customer_id = c.customer_id;
+
+select o.* , c.* from customers c left outer join orders o
+on o.order_customer_id = c.customer_id
+limit 10;
+
+
+select count(1) from customers c left outer join orders o
+on o.order_customer_id = c.customer_id;
+
+
+select * from customers c left outer join orders o
+on o.order_customer_id = c.customer_id
+where o.order_customer_id is null;
+
+same using in clause but is slower
+
+select * from customers where customer_id not in ( select distinct order_customer_id from orders)

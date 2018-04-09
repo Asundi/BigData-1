@@ -1,0 +1,152 @@
+select order_status, count(1) order_count from orders group by order_status;
+
+CANCELED	1428
+CLOSED	7556
+COMPLETE	22899
+ON_HOLD	3798
+PAYMENT_REVIEW	729
+PENDING	7610
+PENDING_PAYMENT	15030
+PROCESSING	8275
+SUSPECTED_FRAUD	1558
+
+SET hive.auto.convert.join=false;
+
+
+select o.order_id , sum(oi.order_item_subtotal) order_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+group by o.order_id;
+
+68264	39.9900016784668
+68265	1139.8700256347656
+68266	899.9300231933594
+68267	249.95999908447266
+68268	739.960018157959
+68270	309.9800109863281
+68271	399.989990234375
+..
+
+select o.order_id , o.order_date, o.order_status,sum(oi.order_item_subtotal) order_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+group by o.order_id,o.order_date, o.order_status;
+
+68873	2014-06-30 00:00:00.0	PENDING	859.9100151062012
+68875	2014-07-04 00:00:00.0	ON_HOLD	2399.949981689453
+68878	2014-07-08 00:00:00.0	COMPLETE	739.9300231933594
+68879	2014-07-09 00:00:00.0	COMPLETE	1259.9700012207031
+68880	2014-07-13 00:00:00.0	COMPLETE	999.7700042724609
+68881	2014-07-19 00:00:00.0	PENDING_PAYMENT	129.99000549316406
+68882	2014-07-22 00:00:00.0	ON_HOLD	109.9900016784668
+68883	2014-07-23 00:00:00.0	COMPLETE	2149.989990234375
+...
+
+select o.order_id , o.order_date, o.order_status,sum(oi.order_item_subtotal) order_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+where o.order_status in ('COMPLETE','CLOSED')
+group by o.order_id,o.order_date, o.order_status
+having sum(oi.order_item_subtotal)  >= 1000;
+
+68837	2014-05-07 00:00:00.0	COMPLETE	2299.959991455078
+68848	2014-05-22 00:00:00.0	CLOSED	2399.959991455078
+68858	2014-06-06 00:00:00.0	COMPLETE	2839.9100036621094
+68859	2014-06-11 00:00:00.0	COMPLETE	2349.8899841308594
+68879	2014-07-09 00:00:00.0	COMPLETE	1259.9700012207031
+68883	2014-07-23 00:00:00.0	COMPLETE	2149.989990234375
+..
+
+//Get revenue for each date
+
+select o.order_date, sum(order_item_subtotal) daily_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+where o.order_status in ('COMPLETE','CLOSED')
+group by o.order_date;
+
+2014-07-19 00:00:00.0	38420.99083900452
+2014-07-20 00:00:00.0	60047.45125579834
+2014-07-21 00:00:00.0	51427.70098876953
+2014-07-22 00:00:00.0	36717.24081039429
+2014-07-23 00:00:00.0	38795.23077964783
+2014-07-24 00:00:00.0	50885.19097518921
+...
+
+select o.order_date,round(sum(order_item_subtotal)) daily_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+where o.order_status in ('COMPLETE','CLOSED')
+group by o.order_date;
+
+//Sorting
+
+
+select o.order_id , o.order_date, o.order_status,sum(oi.order_item_subtotal) order_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+where o.order_status in ('COMPLETE','CLOSED')
+group by o.order_id,o.order_date, o.order_status
+having sum(oi.order_item_subtotal)  >= 1000
+order by o.order_date,  order_revenue desc;
+
+
+57735	2014-07-24 00:00:00.0	COMPLETE	1299.9100189208984
+57733	2014-07-24 00:00:00.0	CLOSED	1209.8400421142578
+57631	2014-07-24 00:00:00.0	CLOSED	1165.8600273132324
+57691	2014-07-24 00:00:00.0	COMPLETE	1149.8100280761719
+57684	2014-07-24 00:00:00.0	COMPLETE	1129.9000244140625
+57669	2014-07-24 00:00:00.0	COMPLETE	1119.9400253295898
+57742	2014-07-24 00:00:00.0	COMPLETE	1079.8800239562988
+67406	2014-07-24 00:00:00.0	COMPLETE	1069.9000244140625
+57650	2014-07-24 00:00:00.0	COMPLETE	1049.9100151062012
+67410	2014-07-24 00:00:00.0	COMPLETE	1019.9400291442871
+57627	2014-07-24 00:00:00.0	COMPLETE	1017.9000015258789
+57690	2014-07-24 00:00:00.0	CLOSED	1009.9300155639648
+..
+
+// order by sorts data globally , distribute by might not sort data globally but within each date will sort by order revenue in desc perform better
+
+select o.order_id , o.order_date, o.order_status,sum(oi.order_item_subtotal) order_revenue
+from  orders o join order_items oi on o.order_id = oi.order_item_order_id
+where o.order_status in ('COMPLETE','CLOSED')
+group by o.order_id,o.order_date, o.order_status
+having sum(oi.order_item_subtotal)  >= 1000
+distribute by o.order_date sort by o.order_date ,  order_revenue desc;
+
+49057	2014-05-26 00:00:00.0	COMPLETE	1659.8600425720215
+49092	2014-05-26 00:00:00.0	COMPLETE	1419.8100280761719
+49048	2014-05-26 00:00:00.0	CLOSED	1019.9300346374512
+65791	2014-05-27 00:00:00.0	COMPLETE	1519.8500213623047
+49166	2014-05-27 00:00:00.0	CLOSED	1179.9200286865234
+49143	2014-05-27 00:00:00.0	CLOSED	1174.9300079345703
+49184	2014-05-27 00:00:00.0	COMPLETE	1149.8900146484375
+49134	2014-05-27 00:00:00.0	COMPLETE	1079.8299865722656
+..
+
+//set operation on similar datasets join i sperformed based on common key column.
+//union all will not sort the data
+
+select 1, "Hello"
+union all
+select 2 , "World"
+union all
+select 1, "Hello"
+union all
+select 1, "World";
+
+OK
+1	Hello
+2	World
+1	Hello
+1	World
+
+
+//union will eliminate duplicate dint run
+
+select 1, "Hello"
+union
+select 2 , "World"
+union
+select 1, "Hello"
+union
+select 1, "world";
+
+
+1	Hello
+2	World
+1	world

@@ -1,0 +1,80 @@
+select count(1) from orders;
+row count = 68883
+
+
+select sum(order_item_subtotal) from order_items;
+3.432262059842491E7
+
+select count(1), order_status from orders; //not possible
+
+select count(1) , count(distinct order_status) from orders;
+68883	9
+
+//Functions
+
+//case- if(condition) 'x' else if(condition) 'y'  else 'z'
+select distinct order_status from orders;
+
+select case order_status when 'CLOSED'  then 'No Action' 
+ when  'COMPLETE' then 'No Action'
+ end from orders limit 10;
+
+OK
+No Action
+NULL
+No Action
+No Action
+No Action
+No Action
+No Action
+NULL
+NULL
+NULL
+
+
+select case order_status IN ('CLOSED' , 'COMPLETE')  then 'No Action' 
+ when order_status IN ('ON_HOLD' , 'PENDING')   then 'Pending Action'
+ else 'Risky'
+ end from orders limit 10;
+
+select nvl(order_status, 'Status Missing') from orders limit 100;
+
+same as
+
+select case when order_status is null then 'Status Missing' else order_status from orders limit 100;
+
+
+/Row level transformation
+
+hive> select * from orders limit 10;
+OK
+1	2013-07-25 00:00:00.0	11599	CLOSED
+2	2013-07-25 00:00:00.0	256	PENDING_PAYMENT
+3	2013-07-25 00:00:00.0	12111	COMPLETE
+4	2013-07-25 00:00:00.0	8827	CLOSED
+5	2013-07-25 00:00:00.0	11318	COMPLETE
+6	2013-07-25 00:00:00.0	7130	COMPLETE
+7	2013-07-25 00:00:00.0	4530	COMPLETE
+8	2013-07-25 00:00:00.0	2911	PROCESSING
+9	2013-07-25 00:00:00.0	5657	PENDING_PAYMENT
+10	2013-07-25 00:00:00.0	5648	PENDING_PAYMENT
+
+//take year month 2013-07 convert to int
+
+select concat(substr(order_date , 1, 4), substr(order_date, 6, 2))
+from orders limit 10;
+
+select cast(concat(substr(order_date , 1, 4), substr(order_date, 6, 2)) AS int) from orders limit 10;
+201307
+201307
+201307
+201307
+201307
+201307
+201307
+201307
+201307
+201307
+
+select cast(date_format(order_date , 'YYYYMM') as int) from orders limit 10;
+

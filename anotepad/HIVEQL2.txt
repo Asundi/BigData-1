@@ -1,0 +1,149 @@
+complex data structures  Array,map,struct
+
+0: jdbc:hive2://> create table mobilephones (
+. . . . . . . . > id string,
+. . . . . . . . > title string,
+. . . . . . . . > cost float,
+. . . . . . . . > colors array<string>,
+. . . . . . . . > screen_size array<float>
+. . . . . . . . > );
+OK
+No rows affected (0.167 seconds)
+
+
+0: jdbc:hive2://> insert into table mobilephones
+. . . . . . . . > select "redminote7","Redmi Note 7",300,
+. . . . . . . . > array("white", "silver", "black"),array (float(4.5))
+. . . . . . . . > UNION ALL
+. . . . . . . . > select "motoGplus","Moto G Plus",200,array("black", "gold"),
+. . . . . . . . > array(float(4.5), float(5.5));
+
+
+0: jdbc:hive2://> select id,colors[0] from mobilephones;
+18/02/20 12:50:46 [7ec656d4-a360-4176-8f6c-f86019c94765 main]: WARN translator.SqlFunctionConverter: The function text was empty, name from annotation is index
+OK
++-------------+--------+--+
+|     id      |   c1   |
++-------------+--------+--+
+| redminote7  | white  |
+| motoGplus   | black  |
++-------------+--------+--+
+
+
+0: jdbc:hive2://> drop table mobilephones;
+OK
+No rows affected (2.408 seconds)
+0: jdbc:hive2://> create table mobilephones (
+. . . . . . . . > id string,
+. . . . . . . . > title string,
+. . . . . . . . > cost float,
+. . . . . . . . > colors array<string>,
+. . . . . . . . > screen_size array<float>
+. . . . . . . . > )
+. . . . . . . . > row format delimited fields terminated by ','
+. . . . . . . . > collection items terminated by '#';0: jdbc:hive2://> select id,features['camera'] from mobilephones;
+18/02/20 15:01:58 [7ec656d4-a360-4176-8f6c-f86019c94765 main]: WARN translator.SqlFunctionConverter: The function text was empty, name from annotation is index
+OK
++--------------+-------+--+
+|      id      |  c1   |
++--------------+-------+--+
+| samsungj7    | NULL  |
+| onplusthree  | NULL  |
+|              | NULL  |
++--------------+-------+--+
+
+
+
+[root@localhost apache-hive-2.1.1-bin]# nano mobilephones.csv
+
+samsungj7, Samsung J7, 250,red#blue#black#, 5.5
+onplusthree, One Plus Three, 450, gold#silver, 4.5#5.5
+
+No rows affected (0.202 seconds)
+0: jdbc:hive2://> load data local inpath 'mobilephones.csv'
+. . . . . . . . > into table mobilephones;
+Loading data to table pluralsight.mobilephones
+OK
+No rows affected (0.472 seconds)
+0: jdbc:hive2://> select * from mobilephones;
+
+
+	... 27 more
+Error: Error while compiling statement: FAILED: ParseException line 2:0 cannot recognize input near '.' '.' '.' in column name or primary key or foreign key (state=42000,code=40000)
+0: jdbc:hive2://>  create table mobilephones (
+. . . . . . . . >  id string,
+. . . . . . . . >  title string,
+. . . . . . . . >  cost float,
+. . . . . . . . >  colors array<string>,
+. . . . . . . . >  screen_size array<float>,
+. . . . . . . . > features map <string,boolean>
+. . . . . . . . > )
+. . . . . . . . > row format delimited fields terminated by ','
+. . . . . . . . > collection items terminated by '#'
+. . . . . . . . > map keys terminated by ':';
+
+nano mobilephoes.csv
+samsungj7, Samsung J7, 250,red#blue#black#, 5.5, camera:true#dualsim:false
+onplusthree, One Plus Three, 450, gold#silver, 4.5#5.5,autofocus:true
+
+0: jdbc:hive2://> load data local inpath 'mobilephones.csv'
+. . . . . . . . > into table mobilephones;
+Loading data to table pluralsight.mobilephones
+
+0: jdbc:hive2://> select * from mobilephones;
+OK
++------------------+---------------------+--------------------+----------------------------+---------------------------+-----------------------------------+--+
+| mobilephones.id  | mobilephones.title  | mobilephones.cost  |    mobilephones.colors     | mobilephones.screen_size  |       mobilephones.features       |
++------------------+---------------------+--------------------+----------------------------+---------------------------+-----------------------------------+--+
+| samsungj7        |  Samsung J7         | 250.0              | ["red","blue","black",""]  | [5.5]                     | {" camera":true,"dualsim":false}  |
+| onplusthree      |  One Plus Three     | 450.0              | [" gold","silver"]         | [4.5,5.5]                 | {"autofocus":true}                |
+|                  | NULL                | NULL               | NULL                       | NULL                      | NULL                              |
++------------------+---------------------+--------------------+----------------------------+---------------------------+-----------------------------------+--+
+3 rows selected (0.223 seconds)
+
+0: jdbc:hive2://> select id,features['camera'] from mobilephones;
+18/02/20 15:01:58 [7ec656d4-a360-4176-8f6c-f86019c94765 main]: WARN translator.SqlFunctionConverter: The function text was empty, name from annotation is index
+OK
++--------------+-------+--+
+|      id      |  c1   |
++--------------+-------+--+
+| samsungj7    | NULL  |
+| onplusthree  | NULL  |
+|              | NULL  |
++--------------+-------+--+
+
+0: jdbc:hive2://>  create table mobilephones (
+. . . . . . . . >  id string,
+. . . . . . . . >  title string,
+. . . . . . . . >  cost float,
+. . . . . . . . >  colors array<string>,
+. . . . . . . . >  screen_size array<float>,
+. . . . . . . . > features map <string,boolean>,
+. . . . . . . . > information struct<battery:string,camera:string>
+. . . . . . . . > )
+. . . . . . . . > row format delimited fields terminated by ','
+. . . . . . . . > collection items terminated by '#'
+. . . . . . . . > map keys terminated by ':';
+
+create table mobilephones (
+ id string,
+ title string,
+ cost float,
+ colors array<string>,
+ screen_size array<float>,
+features map <string,boolean>,
+information struct<battery:string,camera:string>
+)
+row format delimited fields terminated by ','
+collection items terminated by '#'
+map keys terminated by ':';
+
+https://stackoverflow.com/questions/42690210/error-applying-authorization-policy-on-hive-configuration-couldnt-create-direc
+
+
+bin/beeline -u jdbc:hive2://
+
+
+could only be replicated to 0 nodes instead of minReplication (=1).  There are 1 datanode(s) running and no node(s) are excluded in this operation.
+
+Error: Error while processing statement: FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.MoveTask. org.apache.hadoop.ipc.RemoteException(java.io.IOException): File /user/hive/warehouse/pluralsight.db/mobilephones/mobilephones_copy_2.csv could only be replicated to 0 nodes instead of minReplication (=1).  There are 1 datanode(s) running and no node(s) are excluded in this operation.

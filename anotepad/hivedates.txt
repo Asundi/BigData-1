@@ -1,0 +1,67 @@
+//current_date
+hive> select current_date;
+OK
+2018-03-27
+
+hive> select current_timestamp;
+OK
+2018-03-27 02:32:35.138
+
+hive>  select date_format(current_date,'y');
+OK
+2018
+
+hive>  select date_format(current_date,'d');
+OK
+27
+
+hive>  select date_format(current_date,'D');
+OK
+86
+
+https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+
+
+//current date
+hive> select day(current_date);
+OK
+27
+
+hive> select dayofmonth(current_date)
+    > ;
+OK
+27
+
+//todate
+hive> select to_date(current_timestamp);
+OK
+2018-03-27
+
+
+hive> select to_unix_timestamp(current_date);
+OK
+1522134000
+
+hive> select from_unixtime(1522134000)
+    > ;
+OK
+2018-03-27 00:00:00
+
+hive> select to_date(from_unixtime(1522134000));
+OK
+2018-03-27
+
+hive> select * from orders limit 10;
+1	1374735600000	11599	CLOSED
+2	1374735600000	256	PENDING_PAYMENT
+3	1374735600000	12111	COMPLETE
+4	1374735600000	8827	CLOSED
+5	1374735600000	11318	COMPLETE
+6	1374735600000	7130	COMPLETE
+7	1374735600000	4530	COMPLETE
+8	1374735600000	2911	PROCESSING
+9	1374735600000	5657	PENDING_PAYMENT
+10	1374735600000	5648	PENDING_PAYMENT
+
+hive> select to_date(order_date) from orders limit 10;
+

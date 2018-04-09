@@ -1,0 +1,305 @@
+sudo -u hdfs hadoop dfsadmin -safemode leave
+https://cwiki.apache.org/confluence/display/Hive/LanguageManual
+spark-shell --master yarn --conf spark.ui.port=12567
+
+show-databases;
+
+
+ create database keerthan_retail_db_txt;
+
+ use keerthan_retail_db_txt;
+
+[cloudera@quickstart ~]$ cd /etc/hive/conf
+vi hive-site.xml
+
+//warehousedir
+  <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/user/hive/warehouse</value>
+  </property>
+
+hive> set hive.metastore.warehouse.dir
+    > ;
+hive.metastore.warehouse.dir=/user/hive/warehouse
+
+dfs -ls /user/hive/warehouse;
+[cloudera@quickstart ~]$ ls -ltr /home/cloudera/data-master/retail_db
+
+[cloudera@quickstart orders]$ ls -ltr
+total 2932
+-rw-rw-r-- 1 cloudera cloudera 2999944 Oct 20 23:24 part-00000
+
+create table orders (
+     order_id int,
+    order_date string,
+     order_customer_id int,
+    order_status string)
+    row format delimited fields terminated by  ','
+    stored as textfile;
+
+hive> show tables;
+OK
+orders
+Time taken: 0.194 seconds, Fetched: 1 row(s)
+
+select * from orders limit 10;
+
+load data local inpath '/home/cloudera/data-master/retail_db/orders' into table orders;
+Loading data to table keerthan_retail_db_txt.orders
+Table keerthan_retail_db_txt.orders stats: [numFiles=1, totalSize=2999944]
+OK
+
+hive> dfs -ls /user/hive/warehouse/keerthan_retail_db_txt.db/orders;
+Found 1 items
+-rwxrwxrwx   1 cloudera supergroup    2999944 2018-03-24 02:46 /user/hive/warehouse/s_txt.db/orders/part-00000
+
+
+//delete existing data and overwrite table data
+load data local inpath 'home/cloudera/data-master/retail_db/orders' overwrite into table orders;
+
+select * from orders limit 10;
+OK
+1	2013-07-25 00:00:00.0	11599	CLOSED
+2	2013-07-25 00:00:00.0	256	PENDING_PAYMENT
+3	2013-07-25 00:00:00.0	12111	COMPLETE
+4	2013-07-25 00:00:00.0	8827	CLOSED
+5	2013-07-25 00:00:00.0	11318	COMPLETE
+6	2013-07-25 00:00:00.0	7130	COMPLETE
+7	2013-07-25 00:00:00.0	4530	COMPLETE
+8	2013-07-25 00:00:00.0	2911	PROCESSING
+9	2013-07-25 00:00:00.0	5657	PENDING_PAYMENT
+10	2013-07-25 00:00:00.0	5648	PENDING_PAYMENT
+
+
+create table order_items (
+    order_item_id int,
+    order_item_order_id  int,
+    order_item_product_id int,
+    order_item_quantity int,
+    order_item_subtotal float,
+    order_item_product_price float)
+    row format delimited fields terminated by  ','
+    stored as textfile;
+
+load data local inpath '/home/cloudera/data-master/retail_db/order_items' into table order_items;
+
+drop table order_items;
+
+
+//ORC file format
+ create database keerthan_retail_db_orc;
+ use keerthan_retail_db_orc;
+
+
+create table orders (
+     order_id int,
+    order_date string,
+     order_customer_id int,
+    order_status string)
+    stored as orc;
+
+insert into table orders select * from keerthan_retail_db_txt.orders;
+
+create table order_items (
+    order_item_id int,
+    order_item_order_id  int,
+    order_item_product_id int,
+    order_item_quantity int,
+    order_item_subtotal float,
+    order_item_product_price float)
+    stored as orc;
+
+insert into table order_items select * from keerthan_retail_db_txt.order_items;
+
+
+describe formatted orders;
+
+hive> dfs -ls hdfs://quickstart.cloudera:8020/user/hive/warehouse/keerthan_retail_db_orc.db/orders
+    > ;
+Found 1 items
+-rwxrwxrwx   1 cloudera supergroup     163094 2018-03-24 03:32 hdfs://quickstart.cloudera:8020/user/hive/warehouse/keerthan_retail_db_orc.db/orders/000000_0
+
+
+//SPark sql
+
+sqlContext.sql("use keerthan_retail_db_txt")
+
+sqlContext.sql("show tables")
+
+scala> sqlContext.sql("select * from orders limit 10").show
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
+|       6|2013-07-25 00:00:...|             7130|       COMPLETE|
+|       7|2013-07-25 00:00:...|             4530|       COMPLETE|
+|       8|2013-07-25 00:00:...|             2911|     PROCESSING|
+|       9|2013-07-25 00:00:...|             5657|PENDING_PAYMENT|
+|      10|2013-07-25 00:00:...|             5648|PENDING_PAYMENT|
++--------+--------------------+-----------------+---------------+
+ //hive
+
+show functions;
+hive> describe function length
+    > ;create table order_items (
+    order_item_id int,
+    order_item_order_id  int,
+    order_item_product_id int,
+    order_item_quantity int,
+    order_item_subtotal float,
+    order_item_product_price float)
+    row format delimited fields terminated by  ','
+    stored as textfile;
+OK
+length(str | binary) - Returns the length of str or number of bytes in binary data
+
+select length ('Hello World')
+    > ;
+OK
+11
+
+select length(order_status) from orders limit 10;
+
+create table customers (
+    customer_id int,
+    customer_fname  varchar(45),
+     customer_lname  varchar(45),
+     customer_email  varchar(45),
+     customer_password  varchar(45),
+     customer_street  varchar(255),
+    customer_city  varchar(45),
+   customer_state  varchar(45)
+   ) row format delimited fields terminated by  ','
+    stored as textfile;
+
+load data local inpath '/home/cloudera/data-master/retail_db/cutomers' into table customers;
+
+substr
+instr
+like
+rlike
+length
+lcase or lower
+ucase or upper
+initcap
+trim,ltrim, rtrim
+cast
+lpad,rpad
+split
+
+describe function substr;
+
+select substr('Hello World, HOw are you', 14);
+OK
+HOw are you
+
+hive> select substr('Hello World, HOw are you', 7,5);
+OK
+World
+
+hive> select substr('Hello World, HOw are you',-3 );
+OK
+you
+
+hive> select substr('Hello World, HOw are you',-7,3 );
+OK
+are
+
+hive> select instr('hello world, how are you',' ')
+    > ;
+OK
+6
+
+hive> select instr('hello world, how are you','world')
+    > ;
+OK
+7
+
+hive> select  "Hello WOrld , How are you" like 'Hello%';
+OK
+true
+
+hive> select  "Hello WOrld , How are you" rlike '%WOrld%';
+OK
+false
+
+hive> select length("Hello Wordl");
+OK
+11
+
+select lower("Hello Wordl");
+select lcase("Hello Wordl");
+select upper("Hello Wordl");
+select ucase("Hello Wordl");
+
+hive> select trim(' hello world ');
+OK
+hello world
+
+hive> select lpad(2,2 , '0')
+    > ;
+OK
+02
+
+hive> select cast("12" as int);
+OK
+12
+
+select order_date from orders limit 10;
+OK
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+2013-07-25 00:00:00.0
+
+select substr(order_date,6,2) from orders limit 10;
+Total MapReduce CPU Time Spent: 2 seconds 40 msec
+OK
+07
+07
+07
+07
+07
+07
+07
+07
+07
+07
+
+select cast(substr(order_date,6,2) as int) from orders limit 10;
+Total MapReduce CPU Time Spent: 2 seconds 970 msec
+OK
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+
+select split("Hello WOrld, how are you", ' ');
+Total MapReduce CPU Time Spent: 2 seconds 540 msec
+OK
+["Hello","WOrld,","how","are","you"]
+
+select index(split("Hello WOrld, how are you", ' '),4);
+Total MapReduce CPU Time Spent: 2 seconds 410 msec
+OK
+you
+
+
+
+

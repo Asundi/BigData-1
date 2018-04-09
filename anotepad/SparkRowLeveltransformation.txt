@@ -1,21 +1,21 @@
 <p>val orders= sc.textFile("retail_db/orders")
 //2013-07-25 00:00:00.0 -&gt; 20130725 asInt
 
-scala&gt; val str = orders.first
+scala> val str = orders.first
 str: String = 1,2013-07-25 00:00:00.0,11599,CLOSED
 
-scala&gt; str.split(",")(1).substring(0,10)
+scala> str.split(",")(1).substring(0,10)
 res1: String = 2013-07-25
 
-scala&gt; str.split(",")(1).substring(0,10).replace("-","")
+scala> str.split(",")(1).substring(0,10).replace("-","")
 res3: String = 20130725
 
-scala&gt; str.split(",")(1).substring(0,10).replace("-","").toInt
+scala> str.split(",")(1).substring(0,10).replace("-","").toInt
 res4: Int = 20130725
 
-val t = orders.map(x =&gt; x.split(",")(1).substring(0,10).replace("-","").toInt
+val t = orders.map(x =>; x.split(",")(1).substring(0,10).replace("-","").toInt
 
-val orderDates = orders.map((str: String) =&gt; {
+val orderDates = orders.map((str: String) => {
 str.split(",") (1).substring(0,10).replace("-","").toInt
 })
 
@@ -32,7 +32,7 @@ scala&gt; orderDates.take(10).foreach(println)
 20130725
 
 
-val ordersPariedRDD = orders.map(order =&gt; {
+val ordersPariedRDD = orders.map(order =>; {
 val o = order.split(",")
 (o(0).toInt, o(1).substring(0,10).replace("-","").toInt)
 })
@@ -51,11 +51,11 @@ scala&gt; ordersPariedRDD.take(10).foreach(println)
 
 
 val orderItems= sc.textFile("retail_db/order_items")
-val orderItemsPairedRDD = orderItems.map (orderItem =&gt; {
+val orderItemsPairedRDD = orderItems.map (orderItem => {
 (orderItem.split(",")(1).toInt, orderItem)
 })
 
-scala&gt; orderItems.take(10).foreach(println)
+scala> orderItems.take(10).foreach(println)
 1,1,957,1,299.98,299.98
 2,2,1073,1,199.99,199.99
 3,2,502,5,250.0,50.0
@@ -84,9 +84,9 @@ scala&gt; orderItemsPairedRDD.take(10).foreach(println)
 val l = List("Hello", "HOw are doing" ,"Let us perform word count", "As part of the word count program", "we will se how many times each word repeat")
 
 val l_rdd = sc.parallelize(l)
-val l_map = l_rdd.map(ele =&gt; ele.split(" "))
+val l_map = l_rdd.map(ele => ele.split(" "))
 
-val l_flatMap = l_rdd.flatMap(ele =&gt; ele.split(" "))
+val l_flatMap = l_rdd.flatMap(ele => ele.split(" "))
 
 [Ljava.lang.String;@1cd49353
 [Ljava.lang.String;@48143cee
@@ -94,7 +94,7 @@ val l_flatMap = l_rdd.flatMap(ele =&gt; ele.split(" "))
 [Ljava.lang.String;@494a72b2
 [Ljava.lang.String;@36b029b5
 
-val wordcount = l_flatMap.map(word =&gt; (word, 1)).countByKey
+val wordcount = l_flatMap.map(word => (word, 1)).countByKey
 
 scala&gt; val wordcount = l_flatMap.map(word =&gt; (word, 1)).countByKey
 wordcount: scala.collection.Map[String,Long] = Map(se -&gt; 1, "" -&gt; 1, program -&gt; 1, count -&gt; 2, are -&gt; 1, Let -&gt; 1, us -&gt; 1, each -&gt; 1, HOw -&gt; 1, doing -&gt; 1, how -&gt; 1, Hello -&gt; 1, will -&gt; 1, perform -&gt; 1, times -&gt; 1, part -&gt; 1, repeat -&gt; 1, As -&gt; 1, many -&gt; 1, word -&gt; 3, we -&gt; 1, of -&gt; 1, the -&gt; 1)</p>

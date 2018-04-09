@@ -1,0 +1,25 @@
+mple.conf: A single-node Flume configuration
+
+# Name the components on this agent
+wh.sources = ws
+wh.sinks = hd
+wh.channels = mem
+
+# Describe/configure the source
+wh.sources.ws.type = exec
+wh.sources.ws.command = tail -F /opt/gen_logs/logs/access.log
+
+
+# Describe the sink
+wh.sinks.hd.type = hdfs
+wh.sinks.hd.hdfs.path = hdfs://quickstart.cloudera:8020/user/keerthan/flume_demo
+
+# Use a channel which buffers events in memory
+wh.channels.mem.type = memory
+wh.channels.mem.capacity = 1000
+wh.channels.mem.transactionCapacity = 100
+
+
+# Bind the source and sink to the channel
+wh.sources.ws.channels = mem
+wh.sinks.hd.channel = mem
