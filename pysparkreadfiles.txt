@@ -1,0 +1,148 @@
+
+pyspark --master yarn \
+  --conf spark.ui.port=12890 \
+  --num-executors 2 \
+  --executor-memory 512M \
+  --packages com.databricks:spark-avro_2.10:2.0.1
+
+
+sqlContext.load("data/retail_db_json/order_items","json").show()
+
+
+sqlContext.read.json("data/retail_db_json/order_items").show()
+
+
+orders = sc.textFile("data/orders")
+>>> orders.first()
+u'1,2013-07-25 00:00:00.0,11599,CLOSED'
+>>> type(orders.first())
+<type 'unicode'>
+>>> s = orders.first()
+>>> s[0]
+u'1'
+>>> s[:10]
+u'1,2013-07-'
+>>> len(s0
+... )
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 's0' is not defined
+>>> len(s)
+36
+>>> s[2:11]
+u'2013-07-2'
+>>> s[2:12]
+u'2013-07-25'
+>>> s.split(",")
+[u'1', u'2013-07-25 00:00:00.0', u'11599', u'CLOSED']
+>>> type(s.split(","))
+<type 'list'>
+>>> type(s.split(","))[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'type' object is unsubscriptable
+>>> s.split(",")[0]
+u'1'
+>>> int(s.split(",")[0])
+1
+>>> int(s.split(",")[1].split(" ")[0].replace("-",""))
+20130725
+>>> orders = sc.textFile("data/orders")
+>>> orders.first()
+u'1,2013-07-25 00:00:00.0,11599,CLOSED'
+>>> orders.split(",")[4].first()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'RDD' object has no attribute 'split'
+>>> orders.first().split(",")[4]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> orders.first().split(",")[3]
+u'CLOSED'
+>>> orders.map(lambda o:o.split(",")[3]).first()
+u'CLOSED'
+
+
+linesList= ["How are you","let us perform","word count using flatMap", "to understand flatMap in detail"]
+
+
+linesList= ["How are you","let us perform","word count using flatMap", "to understand flatMap in detail"]
+>>> lines = sc.parallelize(linesList)
+>>> lines.first()
+'How are you'
+>>> words= lines.flatMap(lambda l: l.split(" "))
+>>> words.first()
+'How'
+>>> wordsmap= lines.MAP(LAMBDA L: L.split(" "))
+  File "<stdin>", line 1
+    wordsmap= lines.MAP(LAMBDA L: L.split(" "))
+                               ^
+SyntaxError: invalid syntax
+>>> wordsmap= lines.map(LAMBDA L: L.split(" "))
+  File "<stdin>", line 1
+    wordsmap= lines.map(LAMBDA L: L.split(" "))
+                               ^
+SyntaxError: invalid syntax
+>>> wordsmap= lines.map(lambda L: L.split(" "))
+>>> wordsmap.first()
+['How', 'are', 'you']
+>>> 
+
+for i in orders.take(100): print(i)
+
+rdersFiltered = orders.filter(lambda i:i.split(",")[3] =='COMPLETE')
+>>> for i in ordersFiltered.take(100): print(i)
+
+ordersFilteredComplete = orders.\
+... filter(lambda o:
+... (o.split(",")[3] in ["COMPLETE","CLOSED"] and o.split
+... (",")[1][:7] =="2014-01")
+... 
+... )
+>>> ordersFilteredComplete.first()
+u'25882,2014-01-01 00:00:00.0,4598,COMPLETE'
+
+>>> for i in ordersFilteredComplete.take(10): print(i)
+... 
+25882,2014-01-01 00:00:00.0,4598,COMPLETE
+25888,2014-01-01 00:00:00.0,6735,COMPLETE
+25889,2014-01-01 00:00:00.0,10045,COMPLETE
+25891,2014-01-01 00:00:00.0,3037,CLOSED
+25895,2014-01-01 00:00:00.0,1044,COMPLETE
+25897,2014-01-01 00:00:00.0,6405,COMPLETE
+25898,2014-01-01 00:00:00.0,3950,COMPLETE
+25899,2014-01-01 00:00:00.0,8068,CLOSED
+25900,2014-01-01 00:00:00.0,2382,CLOSED
+25901,2014-01-01 00:00:00.0,3099,COMPLETE
+
+joins
+
+>>> orders = sc.textFile("data/orders")
+>>> orderItems = sc.textFile("data/order_iems")
+>>> orders.first()
+u'1,2013-07-25 00:00:00.0,11599,CLOSED'
+>>> orderItems.first()
+u'1,1,957,1,299.98,299.98'
+
+orderTuple = orders.map(lambda o:(o.split(",")[0],o.split(",")[1]))
+>>> orderTuple.first()
+(u'1', u'2013-07-25 00:00:00.0')
+>>> orderTuple = orders.map(lambda o:(int(o.split(",")[0]),o.split(",")[1]))
+>>> orderTuple.first()
+(1, u'2013-07-25 00:00:00.0')
+>>> orderItemsTuple = orderItems.map(lambda oi:(int(oi.split(",")[1]),float(oi.split(",")[4]))
+... )
+>>> orderItemsTuple.first()
+(1, 299.98000000000002)
+>>> orderTuple.join(orderItemsTuple)
+PythonRDD[91] at RDD at PythonRDD.scala:43
+>>> ojoinoi =orderTuple.join(orderItemsTuple)
+>>> ojoinoi.first()
+(2, (u'2013-07-25 00:00:00.0', 199.99000000000001))                             
+>>> ojoinoi.first()[0]
+2
+>>> ojoinoi.first()[1][0]
+u'2013-07-25 00:00:00.0'
+>>> ojoinoi.first()[1]
+(u'2013-07-25 00:00:00.0', 199.99000000000001)
